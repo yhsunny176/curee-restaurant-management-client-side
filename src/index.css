@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400..900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+@import "tailwindcss";
+
+@plugin "daisyui" {
+  themes: light --default;
+}
+
+@theme {
+  /* Fonts */
+  --font-head: "Cinzel", "serif";
+  --font-head-decor: "Cinzel Decorative", "serif";
+  --font-pg: "Lora", "serif";
+
+
+  /* Colors */
+  --color-red-primary-600: #C91409;
+  --color-red-primary-700: #AC1209;
+
+  --color-red-text-500: #F02518;
+  --color-black-text-100: #666363;
+  --color-black-text-500: #1C1B1B;
+  --color-black-text-600: #161515;
+  --color-white-text-400: #FEFDFD;
+  --color-gold-text: #EFBF04;
+
+  --color-border-gray-100: #E9DFDF;
+  --color-border-gray-200: #D5D2D2;
+
+  --color-hover-gray-100: #F4F2F2;
+
+  --spacing-p1: 1.619rem;
+
+}
+
+body, p {
+  font-family: var(--font-pg);
+}
+
+h1 {
+  font-family: var(--font-head-decor);
+}
+
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--font-head);
+}
+
