@@ -54,7 +54,7 @@ const Navbar = () => {
 
                         <div className="flex items-center space-x-10">
                             <div className="hidden flex-none lg:block">
-                                <nav className="flex space-x-6">
+                                <nav className="flex space-x-6 text-white-text-400">
                                     <NavLink
                                         to="/"
                                         className="hover:text-gold-text transition-colors text-base duration-300 ease-in-out">
