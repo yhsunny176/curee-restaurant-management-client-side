@@ -1,12 +1,19 @@
 import React from "react";
 import Banner from "../../components/Banner";
+import TopFoodItems from "../../components/TopFoodItems";
+
 
 const Home = () => {
     return (
         <div>
             <div className="w-full h-[700px]j lg:h-[900px]">
-              <Banner></Banner>
+                <Banner></Banner>
             </div>
+            
+            <div>
+                <TopFoodItems></TopFoodItems>
+            </div>
+
         </div>
     );
 };
