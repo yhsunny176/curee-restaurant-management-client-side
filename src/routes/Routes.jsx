@@ -2,22 +2,39 @@ import { createBrowserRouter } from "react-router";
 import MainLayout from "../layouts/Main/MainLayout";
 import Home from "../layouts/Home Layout/Home";
 import Error from "../components/Error";
+import AuthLayout from "../layouts/Authentication/AuthLayout";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <MainLayout />,
-    children: [
-      {
-        index: true,
-        element: <Home />,
-      },
-    ],
-  },
-  {
-    path: "/*",
-    element: <Error />,
-  },
+    {
+        path: "/",
+        element: <MainLayout />,
+        children: [
+            {
+                index: true,
+                element: <Home />,
+            },
+        ],
+    },
+    {
+        path: "/auth",
+        element: <AuthLayout></AuthLayout>,
+        children: [
+            {
+                path: "/auth/login",
+                element: <Login></Login>,
+            },
+            {
+                path: "/auth/registration",
+                element: <Register></Register>,
+            },
+        ],
+    },
+    {
+        path: "/*",
+        element: <Error />,
+    },
 ]);
 
 export default router;
