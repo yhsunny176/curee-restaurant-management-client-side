@@ -8,18 +8,19 @@ const Navbar = () => {
                 <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content flex flex-col">
                     {/* Navbar */}
-                    <div className="navbar bg-transparent w-full justify-between lg:max-w-8/12 lg:mx-auto lg:py-3 lg:px-0">
+                    <div className="navbar bg-transparent w-full justify-between lg:max-w-7xl lg:mx-auto lg:py-3 px-3 sm:px-4 lg:px-6 xl:px-8">
                         <div className="flex-none lg:hidden">
                             <label
                                 htmlFor="my-drawer-3"
                                 aria-label="open sidebar"
-                                className="cursor-pointer rounded-sm p-3 hover:bg-hover-gray-100 active:bg-hover-gray-100 transition-colors duration-200 ease-in-out inline-block">
+                                className="cursor-pointer rounded-sm p-3 hover:text-black-text-600 hover:bg-white-transparent active:bg-white-transparent transition-colors duration-200 ease-in-out inline-flex items-center justify-center min-h-[44px] min-w-[44px]">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24"
                                     width={24}
                                     height={24}
-                                    color={"#000000"}
+                                    className="w-6 h-6"
+                                    color={"#FEFDFD"}
                                     fill={"none"}>
                                     <path
                                         d="M4 5L14 5"
@@ -42,7 +43,7 @@ const Navbar = () => {
                                 </svg>
                             </label>
                         </div>
-                        <div className="mx-2 flex-none w-42 h-12 hidden lg:block">
+                        <div className="flex-none w-32 h-8 sm:w-36 sm:h-10 md:w-40 md:h-11 lg:w-44 lg:h-12 xl:w-48 xl:h-14 hidden lg:block">
                             <Link to="/">
                                 <img
                                     src="/logo.svg"
@@ -52,51 +53,50 @@ const Navbar = () => {
                             </Link>
                         </div>
 
-                        <div className="flex items-center space-x-10">
+                        <div className="flex items-center space-x-3 sm:space-x-4 md:space-x-5 lg:space-x-6">
                             <div className="hidden flex-none lg:block">
-                                <nav className="flex space-x-6 text-white-text-400">
+                                <nav className="flex space-x-4 lg:space-x-6 xl:space-x-8 text-white-text-400">
                                     <NavLink
                                         to="/"
-                                        className="hover:text-gold-text transition-colors text-base duration-300 ease-in-out">
+                                        className="hover:text-gold-text transition-colors text-sm lg:text-base xl:text-lg duration-300 ease-in-out whitespace-nowrap">
                                         Home
                                     </NavLink>
                                     <NavLink
                                         to=""
-                                        className="hover:text-gold-text transition-colors text-base duration-300 ease-in-out">
+                                        className="hover:text-gold-text transition-colors text-sm lg:text-base xl:text-lg duration-300 ease-in-out whitespace-nowrap">
                                         All Foods
                                     </NavLink>
                                     <NavLink
                                         to=""
-                                        className="hover:text-gold-text transition-colors text-base duration-300 ease-in-out">
+                                        className="hover:text-gold-text transition-colors text-sm lg:text-base xl:text-lg duration-300 ease-in-out whitespace-nowrap">
                                         Gallery
                                     </NavLink>
                                     <NavLink
                                         to=""
-                                        className="hover:text-gold-text transition-colors text-base duration-300 ease-in-out">
+                                        className="hover:text-gold-text transition-colors text-sm lg:text-base xl:text-lg duration-300 ease-in-out whitespace-nowrap">
                                         Reviews
                                     </NavLink>
                                     <NavLink
                                         to=""
-                                        className="hover:text-gold-text transition-colors text-base duration-300 ease-in-out">
+                                        className="hover:text-gold-text transition-colors text-sm lg:text-base xl:text-lg duration-300 ease-in-out whitespace-nowrap">
                                         Contact Us
                                     </NavLink>
                                 </nav>
                             </div>
 
-                            <div className="flex items-center gap-5 ml-10">
+                            <div className="flex items-center gap-3 sm:gap-4 lg:gap-5">
                                 <div className="flex-none">
-                                    <div className="btn btn-circle avatar">
-                                        <div className="w-10 rounded-full">
-                                            <img
-                                                alt="Tailwind CSS Navbar component"
-                                                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                                            />
-                                        </div>
+                                    <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-11 lg:h-11 xl:w-12 xl:h-12 rounded-full overflow-hidden border-2 border-white-transparent hover:border-gold-text transition-colors duration-300">
+                                        <img
+                                            alt="User avatar"
+                                            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                                            className="w-full h-full object-cover"
+                                        />
                                     </div>
                                 </div>
 
                                 <div className="flex-none">
-                                    <Link className="px-4 py-2 text-white-text-400 bg-red-primary-600 rounded-md hover:bg-red-primary-700 transition-colors duration-600 ease-in-out">
+                                    <Link className="px-5 py-2 sm:px-4 sm:py-2.5 md:px-5 md:py-3 lg:px-6 lg:py-3 text-sm sm:text-base md:text-lg lg:text-xl text-white-text-400 bg-red-primary-600 rounded-md hover:bg-red-primary-700 transition-colors duration-600 ease-in-out whitespace-nowrap min-h-[44px] min-w-[90px] flex items-center justify-center">
                                         Login
                                     </Link>
                                 </div>
@@ -113,7 +113,7 @@ const Navbar = () => {
                         <div className="flex justify-end mb-4">
                             <label
                                 htmlFor="my-drawer-3"
-                                className="cursor-pointer rounded-sm p-3 hover:bg-hover-gray-100 active:bg-hover-gray-100 transition-colors duration-200 ease-in-out inline-block">
+                                className="cursor-pointer rounded-sm p-3 hover:bg-hover-gray-100 active:bg-hover-gray-100 transition-colors duration-200 ease-in-out inline-flex items-center justify-center min-h-[44px] min-w-[44px]">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24"
