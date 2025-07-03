@@ -5,6 +5,7 @@ const Navbar = () => {
     const location = useLocation();
     const isHome = location.pathname === "/";
     const isLogin = location.pathname === "/auth/login";
+    const isRegister = location.pathname === "/auth/registration";
 
     return (
         <div>
@@ -12,7 +13,10 @@ const Navbar = () => {
                 <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content flex flex-col">
                     {/* Navbar */}
-                    <div className={`navbar bg-transparent w-full justify-between ${isLogin ? "lg:max-w-11/12 lg:mx-auto" : "lg:max-w-7xl lg:mx-auto" } lg:py-8 px-3 sm:px-4 lg:px-6 xl:px-8`}>
+                    <div
+                        className={`navbar bg-transparent w-full justify-between ${
+                            isLogin || isRegister ? "lg:max-w-11/12 lg:mx-auto" : "lg:max-w-7xl lg:mx-auto"
+                        } lg:py-8 px-3 sm:px-4 lg:px-6 xl:px-8`}>
                         <div className="flex-none lg:hidden">
                             <label
                                 htmlFor="my-drawer-3"
@@ -62,27 +66,47 @@ const Navbar = () => {
                                 <nav className="flex space-x-4 lg:space-x-6 xl:space-x-8">
                                     <NavLink
                                         to="/"
-                                        className={`hover:text-red-primary-600 transition-colors text-sm lg:text-base xl:text-lg duration-300 ease-in-out whitespace-nowrap ${isHome ? "text-white-text-400 hover:text-gold-text" : "text-black-text-500 hover:text-gold-text"}`}>
+                                        className={`hover:text-red-primary-600 transition-colors text-sm lg:text-base xl:text-lg duration-300 ease-in-out whitespace-nowrap ${
+                                            isHome
+                                                ? "text-white-text-400 hover:text-gold-text"
+                                                : "text-black-text-500 hover:text-gold-text"
+                                        }`}>
                                         Home
                                     </NavLink>
                                     <NavLink
                                         to=""
-                                        className={`hover:text-red-primary-600 transition-colors text-sm lg:text-base xl:text-lg duration-300 ease-in-out whitespace-nowrap ${isHome ? "text-white-text-400 hover:text-gold-text" : "text-black-text-500 hover:text-gold-text"}`}>
+                                        className={`hover:text-red-primary-600 transition-colors text-sm lg:text-base xl:text-lg duration-300 ease-in-out whitespace-nowrap ${
+                                            isHome
+                                                ? "text-white-text-400 hover:text-gold-text"
+                                                : "text-black-text-500 hover:text-gold-text"
+                                        }`}>
                                         All Foods
                                     </NavLink>
                                     <NavLink
                                         to=""
-                                        className={`hover:text-red-primary-600 transition-colors text-sm lg:text-base xl:text-lg duration-300 ease-in-out whitespace-nowrap ${isHome ? "text-white-text-400 hover:text-gold-text" : "text-black-text-500 hover:text-gold-text"}`}>
+                                        className={`hover:text-red-primary-600 transition-colors text-sm lg:text-base xl:text-lg duration-300 ease-in-out whitespace-nowrap ${
+                                            isHome
+                                                ? "text-white-text-400 hover:text-gold-text"
+                                                : "text-black-text-500 hover:text-gold-text"
+                                        }`}>
                                         Gallery
                                     </NavLink>
                                     <NavLink
                                         to=""
-                                        className={`hover:text-red-primary-600 transition-colors text-sm lg:text-base xl:text-lg duration-300 ease-in-out whitespace-nowrap ${isHome ? "text-white-text-400 hover:text-gold-text" : "text-black-text-500 hover:text-gold-text"}`}>
+                                        className={`hover:text-red-primary-600 transition-colors text-sm lg:text-base xl:text-lg duration-300 ease-in-out whitespace-nowrap ${
+                                            isHome
+                                                ? "text-white-text-400 hover:text-gold-text"
+                                                : "text-black-text-500 hover:text-gold-text"
+                                        }`}>
                                         Reviews
                                     </NavLink>
                                     <NavLink
                                         to=""
-                                        className={`hover:text-red-primary-600 transition-colors text-sm lg:text-base xl:text-lg duration-300 ease-in-out whitespace-nowrap ${isHome ? "text-white-text-400 hover:text-gold-text" : "text-black-text-500 hover:text-gold-text"}`}>
+                                        className={`hover:text-red-primary-600 transition-colors text-sm lg:text-base xl:text-lg duration-300 ease-in-out whitespace-nowrap ${
+                                            isHome
+                                                ? "text-white-text-400 hover:text-gold-text"
+                                                : "text-black-text-500 hover:text-gold-text"
+                                        }`}>
                                         Contact Us
                                     </NavLink>
                                 </nav>
@@ -100,7 +124,11 @@ const Navbar = () => {
                                 </div>
 
                                 <div className="flex-none">
-                                    <Link to={"/auth/login"} className={"bg-red-text-500 text-white-text-400 px-5 py-3 sm:px-4 sm:py-2.5 md:px-5 md:py-3 lg:px-6 lg:py-3 text-sm sm:text-base md:text-lg lg:text-xl rounded-md hover:bg-red-primary-700 active:bg-red-primary-700 transition-colors duration-600 ease-in-out flex items-center justify-center"}>
+                                    <Link
+                                        to={"/auth/login"}
+                                        className={
+                                            "bg-red-text-500 text-white-text-400 px-5 py-3 sm:px-4 sm:py-2.5 md:px-5 md:py-3 lg:px-6 lg:py-3 text-sm sm:text-base md:text-lg lg:text-xl rounded-md hover:bg-red-primary-700 active:bg-red-primary-700 transition-colors duration-600 ease-in-out flex items-center justify-center"
+                                        }>
                                         Login
                                     </Link>
                                 </div>

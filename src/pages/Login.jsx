@@ -17,7 +17,7 @@ const Login = () => {
                 </header>
 
                 {/* Left Side / Banner Image */}
-                <div className="flex">
+                <div className="flex h-[calc(100vh-120px)] items-stretch">
                     <div className="relative w-7/12 h-[calc(100vh-120px)]">
                         <img
                             src={loginBanner}
@@ -34,8 +34,7 @@ const Login = () => {
                     </div>
 
                     {/* Right Side / Login Form */}
-
-                    <div className="w-5/12 px-4 py-16">
+                    <div className="w-5/12 px-4 h-[calc(100vh-120px)] flex items-center">
                         <div className="max-w-9/12 mx-auto rounded-xl bg-base-white">
                             {/* Title & Subtitle */}
                             <div className="flex flex-col gap-3 mt-6">
