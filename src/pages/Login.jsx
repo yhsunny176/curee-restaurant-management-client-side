@@ -70,7 +70,7 @@ const Login = () => {
                                             <label className="text-md font-bold text-black-text-500">Password</label>
                                             <div className="relative">
                                                 <input
-                                                    className="w-full text-base px-4 py-2 pr-12 border border-border-gray-200 rounded-lg mt-2 focus:outline-none focus:border-gold-text bg-base-white text-black-text-500 placeholder-black-text-100"
+                                                    className="w-full text-base px-4 py-2 border border-border-gray-200 rounded-lg mt-2 focus:outline-red-text-500 bg-base-white text-black-text-500 placeholder-black-text-100"
                                                     type={showPassword ? "text" : "password"}
                                                     name="password"
                                                     placeholder="Enter your password"
