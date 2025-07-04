@@ -1,11 +1,31 @@
-import React from "react";
-import { Link, NavLink, useLocation } from "react-router";
+import React, { useContext } from "react";
+import { Link, NavLink, useLocation, useNavigate } from "react-router";
+import { AuthContext } from "../contexts/AuthContext";
+import placeHolderAvatar from "../assets/profile.png";
 
 const Navbar = () => {
     const location = useLocation();
     const isHome = location.pathname === "/";
     const isLogin = location.pathname === "/auth/login";
     const isRegister = location.pathname === "/auth/registration";
+
+    const navigate = useNavigate();
+
+    const { user, logOut } = useContext(AuthContext);
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => {
+                navigate("/auth/login", {
+                    state: { message: "Logged out successfully!", type: "success" },
+                });
+            })
+            .catch((error) => {
+                navigate("/auth/login", {
+                    state: { message: `${error.message}`, type: "error" },
+                });
+            });
+    };
 
     return (
         <div>
@@ -117,20 +137,28 @@ const Navbar = () => {
                                     <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-11 lg:h-11 xl:w-12 xl:h-12 rounded-full overflow-hidden border-2 border-white-transparent hover:border-gold-text transition-colors duration-300">
                                         <img
                                             alt="User avatar"
-                                            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                                            src={user?.photoURL || placeHolderAvatar}
                                             className="w-full h-full object-cover"
                                         />
                                     </div>
                                 </div>
 
-                                <div className="flex-none">
-                                    <Link
-                                        to={"/auth/login"}
-                                        className={
-                                            "bg-red-text-500 text-white-text-400 px-5 py-3 sm:px-4 sm:py-2.5 md:px-5 md:py-3 lg:px-6 lg:py-3 text-sm sm:text-base md:text-lg lg:text-xl rounded-md hover:bg-red-primary-700 active:bg-red-primary-700 transition-colors duration-600 ease-in-out flex items-center justify-center"
-                                        }>
-                                        Login
-                                    </Link>
+                                <div className="flex-none hidden md:block">
+                                    {user ? (
+                                        <button
+                                            className="cursor-pointer bg-red-text-500 text-white-text-400 px-5 py-3 sm:px-4 sm:py-2.5 md:px-5 md:py-3 lg:px-6 lg:py-3 text-sm sm:text-base md:text-lg lg:text-xl rounded-md hover:bg-red-primary-700 active:bg-red-primary-700 transition-colors duration-600 ease-in-out flex items-center justify-center"
+                                            onClick={handleLogOut}>
+                                            Logout
+                                        </button>
+                                    ) : (
+                                        <Link
+                                            to={"/auth/login"}
+                                            className={
+                                                "md:block cursor-pointer bg-red-text-500 text-white-text-400 px-5 py-3 sm:px-4 sm:py-2.5 md:px-5 md:py-3 lg:px-6 lg:py-3 text-sm sm:text-base md:text-lg lg:text-xl rounded-md hover:bg-red-primary-700 active:bg-red-primary-700 transition-colors duration-600 ease-in-out flex items-center justify-center"
+                                            }>
+                                            Login
+                                        </Link>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -185,9 +213,26 @@ const Navbar = () => {
                         </NavLink>
                         <NavLink
                             to=""
-                            className={`hover:text-gold-text v active:text-gold-text transition-colors text-base duration-300 ease-in-out`}>
+                            className={`hover:text-gold-text active:text-gold-text transition-colors text-base duration-300 ease-in-out`}>
                             Contact Us
                         </NavLink>
+                        <div className="flex-none md:hidden">
+                            {user ? (
+                                <button
+                                    className="cursor-pointer bg-red-text-500 text-white-text-400 px-5 py-3 sm:px-4 sm:py-2.5 md:px-5 md:py-3 lg:px-6 lg:py-3 text-sm sm:text-base md:text-lg lg:text-xl rounded-md hover:bg-red-primary-700 active:bg-red-primary-700 transition-colors duration-600 ease-in-out flex items-center justify-center"
+                                    onClick={handleLogOut}>
+                                    Logout
+                                </button>
+                            ) : (
+                                <Link
+                                    to={"/auth/login"}
+                                    className={
+                                        "cursor-pointer bg-red-text-500 text-white-text-400 px-5 py-3 sm:px-4 sm:py-2.5 md:px-5 md:py-3 lg:px-6 lg:py-3 text-sm sm:text-base md:text-lg lg:text-xl rounded-md hover:bg-red-primary-700 active:bg-red-primary-700 transition-colors duration-600 ease-in-out flex items-center justify-center"
+                                    }>
+                                    Login
+                                </Link>
+                            )}
+                        </div>
                     </ul>
                 </div>
             </div>
