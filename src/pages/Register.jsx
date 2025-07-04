@@ -1,12 +1,62 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import Navbar from "../components/Navbar";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import loginBanner from "../assets/Banner Images/banner-4.webp";
+import { AuthContext } from "../contexts/AuthContext";
+import { ToastContainer, toast, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const { createUser, updateUser, setUser } = useContext(AuthContext);
+
+    const navigate = useNavigate();
+
+    const handleRegistration = (e) => {
+        e.preventDefault();
+
+        const formValue = e.target;
+        const username = formValue.name.value;
+        const photo = formValue.photoURL.value;
+        const password = formValue.password.value;
+        const email = formValue.email.value;
+
+        if (username.length < 6) {
+            toast.error("Username must be at least 6 characters long");
+            return;
+        }
+
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+        if (passwordRegex.test(password) === false) {
+            toast.error(
+                "Must have an Uppercase letter, Lowercase Letter in the password and at least 6 characters long"
+            );
+            return;
+        }
+
+        createUser(email, password)
+            .then((result) => {
+                const user = result.user;
+                updateUser({ displayName: username, photoURL: photo })
+                    .then(() => {
+                        setUser({ ...user, displayName: username, photoURL: photo });
+                    })
+                    .catch((error) => {
+                        toast.error(`${error.message}`);
+                        setUser(user);
+                    });
+                formValue.reset();
+
+                navigate("/", {
+                    state: { message: "Congrats! Registration Successful!", type: "success" },
+                });
+            })
+            .catch((error) => {
+                toast.error(`${error.message}`);
+            });
+    };
 
     return (
         <div>
@@ -15,6 +65,26 @@ const Register = () => {
                 <header>
                     <Navbar></Navbar>
                 </header>
+
+                <div>
+                    <ToastContainer
+                        position="top-center"
+                        autoClose={5000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick={false}
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="light"
+                        transition={Bounce}
+                        toastClassName={() =>
+                            "relative w-[95%] sm:w-full sm:max-w-md mx-auto bg-white text-black shadow-lg rounded-lg p-4 mt-15"
+                        }
+                        bodyClassName={() => "text-sm sm:text-base font-medium"}
+                    />
+                </div>
 
                 {/* Banner + Form Layout */}
                 <div className="flex h-[calc(100vh-120px)] items-stretch">
@@ -53,7 +123,7 @@ const Register = () => {
 
                             <div className="mt-6">
                                 {/* Form Start */}
-                                <form>
+                                <form onSubmit={handleRegistration}>
                                     <div className="space-y-5">
                                         <div className="space-y-2">
                                             <label className="text-md font-bold text-black-text-500">Name</label>
