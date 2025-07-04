@@ -1,12 +1,47 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import Navbar from "../components/Navbar";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import loginBanner from "../assets/Banner Images/banner-4.webp";
+import { Bounce, toast, ToastContainer } from "react-toastify";
+import { AuthContext } from "../contexts/AuthContext";
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { message, type } = location.state || {};
+    const { signIn } = useContext(AuthContext);
+    const from = location.state?.from?.pathname || "/";
+
+    useEffect(() => {
+        if (message) {
+            if (type === "success") {
+                toast.success(message);
+            }
+        }
+
+        window.history.replaceState({}, document.title);
+    }, [message, type]);
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+        const formValue = e.target;
+        const password = formValue.password.value;
+        const email = formValue.email.value;
+
+        signIn(email, password)
+            .then(() => {
+                toast.success("Congratulations! You Have Logged in Successfully!");
+                setTimeout(() => {
+                    navigate(from);
+                });
+            })
+            .catch(() => {
+                toast.error("One or more Invalid Credentials! Please Try Again!");
+            });
+    };
 
     return (
         <div>
@@ -15,6 +50,26 @@ const Login = () => {
                 <header>
                     <Navbar></Navbar>
                 </header>
+
+                <div>
+                    <ToastContainer
+                        position="top-center"
+                        autoClose={5000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick={false}
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="light"
+                        transition={Bounce}
+                        toastClassName={() =>
+                            "relative w-[95%] sm:w-full sm:max-w-md mx-auto bg-white text-black shadow-lg rounded-lg p-4 mt-15"
+                        }
+                        bodyClassName={() => "text-sm sm:text-base font-medium"}
+                    />
+                </div>
 
                 {/* Left Side / Banner Image */}
                 <div className="flex h-[calc(100vh-120px)] items-stretch">
@@ -52,7 +107,7 @@ const Login = () => {
 
                             <div className="mt-6">
                                 {/* Form Start */}
-                                <form>
+                                <form onSubmit={handleLogin}>
                                     <div className="space-y-5">
                                         <div className="space-y-2">
                                             <label className="text-md font-bold text-black-text-500">Email</label>

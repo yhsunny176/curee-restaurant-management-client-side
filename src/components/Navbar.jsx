@@ -11,7 +11,7 @@ const Navbar = () => {
 
     const navigate = useNavigate();
 
-    const { user, logOut } = useContext(AuthContext);
+    const { user, logOut, loading } = useContext(AuthContext);
 
     const handleLogOut = () => {
         logOut()
@@ -144,7 +144,11 @@ const Navbar = () => {
                                 </div>
 
                                 <div className="flex-none hidden md:block">
-                                    {user ? (
+                                    {loading ? (
+                                        <div className="cursor-pointer bg-red-text-500 text-white-text-400 px-5 py-3 sm:px-4 sm:py-2.5 md:px-5 md:py-3 lg:px-6 lg:py-3 text-sm sm:text-base md:text-lg lg:text-xl rounded-md flex items-center justify-center">
+                                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                        </div>
+                                    ) : user ? (
                                         <button
                                             className="cursor-pointer bg-red-text-500 text-white-text-400 px-5 py-3 sm:px-4 sm:py-2.5 md:px-5 md:py-3 lg:px-6 lg:py-3 text-sm sm:text-base md:text-lg lg:text-xl rounded-md hover:bg-red-primary-700 active:bg-red-primary-700 transition-colors duration-600 ease-in-out flex items-center justify-center"
                                             onClick={handleLogOut}>
@@ -217,7 +221,11 @@ const Navbar = () => {
                             Contact Us
                         </NavLink>
                         <div className="flex-none md:hidden">
-                            {user ? (
+                            {loading ? (
+                                <div className="cursor-pointer bg-red-text-500 text-white-text-400 px-5 py-3 sm:px-4 sm:py-2.5 md:px-5 md:py-3 lg:px-6 lg:py-3 text-sm sm:text-base md:text-lg lg:text-xl rounded-md flex items-center justify-center">
+                                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                </div>
+                            ) : user ? (
                                 <button
                                     className="cursor-pointer bg-red-text-500 text-white-text-400 px-5 py-3 sm:px-4 sm:py-2.5 md:px-5 md:py-3 lg:px-6 lg:py-3 text-sm sm:text-base md:text-lg lg:text-xl rounded-md hover:bg-red-primary-700 active:bg-red-primary-700 transition-colors duration-600 ease-in-out flex items-center justify-center"
                                     onClick={handleLogOut}>
