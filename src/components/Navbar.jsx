@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../contexts/AuthContext";
 import placeHolderAvatar from "../assets/profile.png";
@@ -8,6 +8,7 @@ const Navbar = () => {
     const isHome = location.pathname === "/";
     const isLogin = location.pathname === "/auth/login";
     const isRegister = location.pathname === "/auth/registration";
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const navigate = useNavigate();
 
@@ -133,15 +134,60 @@ const Navbar = () => {
                             </div>
 
                             <div className="flex items-center gap-3 sm:gap-4 lg:gap-5">
-                                <div className="flex-none">
-                                    <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-11 lg:h-11 xl:w-12 xl:h-12 rounded-full overflow-hidden border-2 border-white-transparent hover:border-gold-text transition-colors duration-300">
-                                        <img
-                                            alt="User avatar"
-                                            src={user?.photoURL || placeHolderAvatar}
-                                            className="w-full h-full object-cover"
-                                        />
+                                {/* Avatar with Dropdown */}
+                                {user && (
+                                    <div className="flex-none relative">
+                                        <div 
+                                            className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-11 lg:h-11 xl:w-12 xl:h-12 rounded-full overflow-hidden border-2 border-white-transparent hover:border-gold-text transition-colors duration-300 cursor-pointer"
+                                            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                                        >
+                                            <img
+                                                alt="User avatar"
+                                                src={user?.photoURL || placeHolderAvatar}
+                                                className="w-full h-full object-cover"
+                                            />
+                                        </div>
+                                        
+                                        {/* Dropdown Menu */}
+                                        {isDropdownOpen && (
+                                            <div className="absolute right-0 top-full mt-2 w-48 bg-base-white rounded-lg shadow-card border border-border-gray-200 py-2 z-50">
+                                                <Link
+                                                    to="/add-food"
+                                                    className="block px-4 py-2 text-black-text-500 hover:bg-gray-50 hover:text-red-primary-600 transition-colors duration-200"
+                                                    onClick={() => setIsDropdownOpen(false)}
+                                                >
+                                                    Add Food
+                                                </Link>
+                                                <div className="border-t border-border-gray-200 my-1"></div>
+                                                <div className="px-4 py-2">
+                                                    <p className="text-xs text-black-text-100 font-medium">Signed in as:</p>
+                                                    <p className="text-sm text-black-text-500 truncate">{user?.displayName || user?.email}</p>
+                                                </div>
+                                            </div>
+                                        )}
+                                        
+                                        {/* Backdrop to close dropdown when clicking outside */}
+                                        {isDropdownOpen && (
+                                            <div 
+                                                className="fixed inset-0 z-40" 
+                                                onClick={() => setIsDropdownOpen(false)}
+                                            ></div>
+                                        )}
                                     </div>
-                                </div>
+                                )}
+                                
+                                {/* Show placeholder avatar when not logged in */}
+                                {!user && (
+                                    <div className="flex-none">
+                                        <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-11 lg:h-11 xl:w-12 xl:h-12 rounded-full overflow-hidden border-2 border-white-transparent hover:border-gold-text transition-colors duration-300">
+                                            <img
+                                                alt="User avatar"
+                                                src={placeHolderAvatar}
+                                                className="w-full h-full object-cover"
+                                            />
+                                        </div>
+                                    </div>
+                                )}
 
                                 <div className="flex-none hidden md:block">
                                     {loading ? (
@@ -200,6 +246,13 @@ const Navbar = () => {
                             className={`hover:text-gold-text focus:text-gold-text active:text-gold-text transition-colors text-base duration-300 ease-in-out`}>
                             Home
                         </NavLink>
+                        {user && (
+                            <NavLink
+                                to="/add-food"
+                                className={`hover:text-gold-text focus:text-gold-text active:text-gold-text transition-colors text-base duration-300 ease-in-out`}>
+                                Add Food
+                            </NavLink>
+                        )}
                         <NavLink
                             to=""
                             className={`hover:text-gold-text focus:text-gold-text active:text-gold-text transition-colors text-base duration-300 ease-in-out`}>
