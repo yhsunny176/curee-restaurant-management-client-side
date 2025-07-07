@@ -40,22 +40,22 @@ const MyFoods = () => {
     }
 
     return (
-        <div className="min-h-screen bg-base-white py-12">
-            <div className="max-w-8/12 mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-base-white py-6 md:py-8 lg:py-12">
+            <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
                 {/* Header */}
-                <div className="text-center mb-8">
-                    <h1 className="text-3xl lg:text-4xl font-bold text-black-text-600 mb-4">My Food Items</h1>
-                    <p className="text-black-text-100 text-base lg:text-lg max-w-2xl mx-auto">
+                <div className="text-center mb-6 md:mb-8">
+                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-black-text-600 mb-3 md:mb-4">My Food Items</h1>
+                    <p className="text-black-text-100 text-sm md:text-base lg:text-lg max-w-2xl mx-auto px-2">
                         View and manage all the food items you've added to our community.
                     </p>
                 </div>
 
                 {/* Foods Display */}
                 {myFoods.length === 0 ? (
-                    <div className="text-center py-12">
+                    <div className="text-center py-8 md:py-12">
                         <div className="mb-4">
                             <svg
-                                className="mx-auto h-24 w-24 text-gray-300"
+                                className="mx-auto h-16 w-16 md:h-24 md:w-24 text-gray-300"
                                 fill="none"
                                 stroke="currentColor"
                                 viewBox="0 0 24 24">
@@ -67,17 +67,17 @@ const MyFoods = () => {
                                 />
                             </svg>
                         </div>
-                        <h3 className="text-xl font-medium text-black-text-500 mb-2">No food items found</h3>
-                        <p className="text-black-text-100 mb-6">You haven't added any food items yet.</p>
+                        <h3 className="text-lg md:text-xl font-medium text-black-text-500 mb-2">No food items found</h3>
+                        <p className="text-black-text-100 mb-4 md:mb-6 text-sm md:text-base">You haven't added any food items yet.</p>
                         <a
                             href="/add-food"
-                            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-red-primary-600 hover:bg-red-primary-700 transition-colors duration-200">
+                            className="inline-flex items-center px-4 md:px-6 py-2 md:py-3 border border-transparent text-sm md:text-base font-medium rounded-lg text-white bg-red-primary-600 hover:bg-red-primary-700 transition-colors duration-200">
                             Add Your First Food Item
                         </a>
                     </div>
                 ) : (
                     <>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                             {myFoods.map((food) => (
                                 <div
                                     key={food._id}
@@ -86,24 +86,24 @@ const MyFoods = () => {
                                         <img
                                             src={food.foodImage}
                                             alt={food.foodName}
-                                            className="w-full h-48 object-cover"
+                                            className="w-full h-40 md:h-48 object-cover"
                                         />
-                                        <div className="absolute top-3 right-3">
-                                            <span className="inline-flex items-center px-4 py-3 rounded-xl text-md font-medium bg-red-600 text-white">
+                                        <div className="absolute top-2 md:top-3 right-2 md:right-3">
+                                            <span className="inline-flex items-center px-2 md:px-4 py-1.5 md:py-3 rounded-lg md:rounded-xl text-xs md:text-md font-medium bg-red-600 text-white">
                                                 {food.foodCategory}
                                             </span>
                                         </div>
                                     </div>
 
-                                    <div className="p-6 flex flex-col flex-grow">
-                                        <h3 className="font-bold text-xl text-gray-900 mb-3">{food.foodName}</h3>
+                                    <div className="p-4 md:p-6 flex flex-col flex-grow">
+                                        <h3 className="font-bold text-lg md:text-xl text-gray-900 mb-2 md:mb-3">{food.foodName}</h3>
 
-                                        <p className="text-gray-600 text-sm mb-6 leading-relaxed line-clamp-2">
+                                        <p className="text-gray-600 text-xs md:text-sm mb-4 md:mb-6 leading-relaxed line-clamp-2">
                                             {food.description}
                                         </p>
 
-                                        <div className="mt-auto space-y-3">
-                                            <div className="flex justify-between items-center text-lg text-gray-700">
+                                        <div className="mt-auto space-y-2 md:space-y-3">
+                                            <div className="flex justify-between items-center text-sm md:text-lg text-gray-700">
                                                 <span>
                                                     <span className="font-medium">Origin :</span> {food.foodOrigin}
                                                 </span>
@@ -115,14 +115,14 @@ const MyFoods = () => {
 
                                             <div className="flex justify-between items-center">
                                                 <button
-                                                    className="inline-flex items-center px-4 py-3 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md transition-colors duration-300 cursor-pointer"
+                                                    className="inline-flex items-center px-3 md:px-4 py-2 md:py-3 text-xs md:text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md transition-colors duration-300 cursor-pointer"
                                                     title="Update food item">
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"
-                                                        className="w-5 h-5 mr-2"
+                                                        className="w-4 h-4 md:w-5 md:h-5 mr-1 md:mr-2"
                                                         viewBox="0 0 24 24"
-                                                        width={24}
-                                                        height={24}
+                                                        width={20}
+                                                        height={20}
                                                         color={"#FDFDFD"}
                                                         fill={"none"}>
                                                         <path
@@ -149,7 +149,7 @@ const MyFoods = () => {
                                                     </svg>
                                                     Update
                                                 </button>
-                                                <div className="text-3xl font-bold text-gray-900">৳{food.price}</div>
+                                                <div className="text-xl md:text-3xl font-bold text-gray-900">৳{food.price}</div>
                                             </div>
                                         </div>
                                     </div>

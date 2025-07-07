@@ -96,7 +96,7 @@ const Navbar = () => {
                                         Home
                                     </NavLink>
                                     <NavLink
-                                        to=""
+                                        to="/all-foods"
                                         className={`hover:text-red-primary-600 transition-colors text-sm lg:text-base xl:text-lg duration-300 ease-in-out whitespace-nowrap ${
                                             isHome
                                                 ? "text-white-text-400 hover:text-gold-text"
@@ -184,19 +184,6 @@ const Navbar = () => {
                                     </div>
                                 )}
 
-                                {/* Show placeholder avatar when not logged in */}
-                                {!user && (
-                                    <div className="flex-none">
-                                        <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-11 lg:h-11 xl:w-12 xl:h-12 rounded-full overflow-hidden border-2 border-white-transparent hover:border-gold-text transition-colors duration-300">
-                                            <img
-                                                alt="User avatar"
-                                                src={placeHolderAvatar}
-                                                className="w-full h-full object-cover"
-                                            />
-                                        </div>
-                                    </div>
-                                )}
-
                                 <div className="flex-none hidden md:block">
                                     {loading ? (
                                         <div className="cursor-pointer bg-red-text-500 text-white-text-400 px-5 py-3 sm:px-4 sm:py-2.5 md:px-5 md:py-3 lg:px-6 lg:py-3 text-sm sm:text-base md:text-lg lg:text-xl rounded-md flex items-center justify-center">
@@ -254,22 +241,8 @@ const Navbar = () => {
                             className={`hover:text-gold-text focus:text-gold-text active:text-gold-text transition-colors text-base duration-300 ease-in-out`}>
                             Home
                         </NavLink>
-                        {user && (
-                            <>
-                                <NavLink
-                                    to="/add-food"
-                                    className={`hover:text-gold-text focus:text-gold-text active:text-gold-text transition-colors text-base duration-300 ease-in-out`}>
-                                    Add Food
-                                </NavLink>
-                                <NavLink
-                                    to="/my-foods"
-                                    className={`hover:text-gold-text focus:text-gold-text active:text-gold-text transition-colors text-base duration-300 ease-in-out`}>
-                                    My Foods
-                                </NavLink>
-                            </>
-                        )}
                         <NavLink
-                            to=""
+                            to="/all-foods"
                             className={`hover:text-gold-text focus:text-gold-text active:text-gold-text transition-colors text-base duration-300 ease-in-out`}>
                             All Foods
                         </NavLink>
