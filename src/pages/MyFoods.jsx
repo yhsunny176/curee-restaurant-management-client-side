@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import useAxios from "../hooks/useAxios";
 import Loader from "../components/Loader";
-import { ToastContainer, Bounce } from "react-toastify";
+import { ToastContainer, Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const MyFoods = () => {
@@ -16,15 +16,21 @@ const MyFoods = () => {
             const fetchMyFoods = async () => {
                 try {
                     setLoading(true);
-                    const result = await get("/foods");
+                    const result = await get(`/foods?email=${user.email}`);
 
                     if (result && result.success) {
-                        // Filter foods by user email
-                        const userFoods = result.data.filter((food) => food.addedBy?.email === user.email);
-                        setMyFoods(userFoods);
+                        setMyFoods(result.data);
                     }
                 } catch (err) {
                     console.error("Failed to fetch foods:", err);
+                    // Show user-friendly error message
+                    if (err.response?.status === 401) {
+                        toast.error("Authentication required. Please log in again.");
+                    } else if (err.response?.status === 403) {
+                        toast.error("Access denied. You can only view your own food items.");
+                    } else {
+                        toast.error("Failed to load your food items. Please try again.");
+                    }
                 } finally {
                     setLoading(false);
                 }
