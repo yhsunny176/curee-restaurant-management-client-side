@@ -4,10 +4,14 @@ import { AuthContext } from "../contexts/AuthContext";
 import { toast, ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
+import useAxios from "../hooks/useAxios";
+import ButtonLoader from "../components/ButtonLoader";
 
 const AddFood = () => {
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
+    const { post } = useAxios();
+    const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         foodName: "",
         foodImage: "",
@@ -26,7 +30,7 @@ const AddFood = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         // Validate price and quantity
@@ -39,33 +43,56 @@ const AddFood = () => {
             return;
         }
 
-        toast.success("Food item added successfully!");
+        try {
+            setLoading(true);
+            const foodData = {
+                ...formData,
+                quantity: parseInt(formData.quantity),
+                price: parseFloat(formData.price),
+                addedBy: {
+                    name: user?.displayName || "Unknown User",
+                    email: user?.email || "No email",
+                },
+                createdAt: new Date().toISOString(),
+            };
 
-        setFormData({
-            foodName: "",
-            foodImage: "",
-            foodCategory: "",
-            quantity: "",
-            price: "",
-            foodOrigin: "",
-            description: "",
-        });
+            const result = await post("/foods", foodData);
 
-        // Show Success Message
-        Swal.fire({
-            title: "Success!",
-            text: "Food item added successfully!",
-            icon: "success",
-            showCancelButton: true,
-            confirmButtonColor: "#dc2626",
-            cancelButtonColor: "#6b7280",
-            confirmButtonText: "See My Foods",
-            cancelButtonText: "Add Another Food",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                navigate("/my-foods");
+            if (result.success) {
+                toast.success("Food item added successfully!");
+
+                // Reset form
+                setFormData({
+                    foodName: "",
+                    foodImage: "",
+                    foodCategory: "",
+                    quantity: "",
+                    price: "",
+                    foodOrigin: "",
+                    description: "",
+                });
+
+                // Show Success Message
+                Swal.fire({
+                    title: "Success!",
+                    text: "Food item added successfully!",
+                    icon: "success",
+                    showCancelButton: true,
+                    confirmButtonColor: "#dc2626",
+                    cancelButtonColor: "#6b7280",
+                    confirmButtonText: "See My Foods",
+                    cancelButtonText: "Add Another Food",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        navigate("/my-foods");
+                    }
+                });
             }
-        });
+        } catch {
+            // Axios hook handles Error
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -93,7 +120,9 @@ const AddFood = () => {
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
                 <div className="text-center mb-8">
-                    <h1 className="text-3xl font-pg lg:text-4xl font-bold text-black-text-600 mb-4">Add New Food Item</h1>
+                    <h1 className="text-3xl font-pg lg:text-4xl font-bold text-black-text-600 mb-4">
+                        Add New Food Item
+                    </h1>
                     <p className="text-black-text-100 text-base lg:text-lg max-w-2xl mx-auto">
                         Share your delicious food creation with our community. Fill in the details below to add your
                         food item.
@@ -207,7 +236,7 @@ const AddFood = () => {
                                     name="price"
                                     value={formData.price}
                                     onChange={handleInputChange}
-                                    placeholder="Enter price ($)"
+                                    placeholder="Enter price (৳)"
                                     min="0"
                                     step="0.01"
                                     required
@@ -262,8 +291,19 @@ const AddFood = () => {
                         <div className="pt-4">
                             <button
                                 type="submit"
-                                className="w-full flex justify-center bg-red-primary-600 hover:bg-red-primary-700 text-white-text-400 py-3 px-6 rounded-lg font-semibold hover:shadow-card cursor-pointer transition ease-in duration-400 text-lg">
-                                Add Item
+                                disabled={loading}
+                                className={`w-full flex justify-center items-center py-3 px-6 rounded-lg font-semibold transition ease-in duration-400 text-lg ${
+                                    loading
+                                        ? "bg-gray-400 cursor-not-allowed"
+                                        : "bg-red-primary-600 hover:bg-red-primary-700 hover:shadow-card cursor-pointer"
+                                } text-white-text-400`}>
+                                {loading ? (
+                                    <>
+                                        <ButtonLoader size={20} color="#ffffff" />
+                                    </>
+                                ) : (
+                                    "Add Item"
+                                )}
                             </button>
                         </div>
                     </form>

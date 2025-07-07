@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../contexts/AuthContext";
 import placeHolderAvatar from "../assets/profile.png";
+import ButtonLoader from "./ButtonLoader";
 
 const Navbar = () => {
     const location = useLocation();
@@ -137,45 +138,52 @@ const Navbar = () => {
                                 {/* Avatar with Dropdown */}
                                 {user && (
                                     <div className="flex-none relative">
-                                        <div 
+                                        <div
                                             className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-11 lg:h-11 xl:w-12 xl:h-12 rounded-full overflow-hidden border-2 border-white-transparent hover:border-gold-text transition-colors duration-300 cursor-pointer"
-                                            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                                        >
+                                            onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
                                             <img
                                                 alt="User avatar"
                                                 src={user?.photoURL || placeHolderAvatar}
                                                 className="w-full h-full object-cover"
                                             />
                                         </div>
-                                        
+
                                         {/* Dropdown Menu */}
                                         {isDropdownOpen && (
                                             <div className="absolute right-0 top-full mt-2 w-48 bg-base-white rounded-lg shadow-card border border-border-gray-200 py-2 z-50">
                                                 <Link
                                                     to="/add-food"
                                                     className="block px-4 py-2 text-black-text-500 hover:bg-gray-50 hover:text-red-primary-600 transition-colors duration-200"
-                                                    onClick={() => setIsDropdownOpen(false)}
-                                                >
+                                                    onClick={() => setIsDropdownOpen(false)}>
                                                     Add Food
+                                                </Link>
+                                                <Link
+                                                    to="/my-foods"
+                                                    className="block px-4 py-2 text-black-text-500 hover:bg-gray-50 hover:text-red-primary-600 transition-colors duration-200"
+                                                    onClick={() => setIsDropdownOpen(false)}>
+                                                    My Foods
                                                 </Link>
                                                 <div className="border-t border-border-gray-200 my-1"></div>
                                                 <div className="px-4 py-2">
-                                                    <p className="text-xs text-black-text-100 font-medium">Signed in as:</p>
-                                                    <p className="text-sm text-black-text-500 truncate">{user?.displayName || user?.email}</p>
+                                                    <p className="text-xs text-black-text-100 font-medium">
+                                                        Signed in as:
+                                                    </p>
+                                                    <p className="text-sm text-black-text-500 truncate">
+                                                        {user?.displayName || user?.email}
+                                                    </p>
                                                 </div>
                                             </div>
                                         )}
-                                        
+
                                         {/* Backdrop to close dropdown when clicking outside */}
                                         {isDropdownOpen && (
-                                            <div 
-                                                className="fixed inset-0 z-40" 
-                                                onClick={() => setIsDropdownOpen(false)}
-                                            ></div>
+                                            <div
+                                                className="fixed inset-0 z-40"
+                                                onClick={() => setIsDropdownOpen(false)}></div>
                                         )}
                                     </div>
                                 )}
-                                
+
                                 {/* Show placeholder avatar when not logged in */}
                                 {!user && (
                                     <div className="flex-none">
@@ -192,7 +200,7 @@ const Navbar = () => {
                                 <div className="flex-none hidden md:block">
                                     {loading ? (
                                         <div className="cursor-pointer bg-red-text-500 text-white-text-400 px-5 py-3 sm:px-4 sm:py-2.5 md:px-5 md:py-3 lg:px-6 lg:py-3 text-sm sm:text-base md:text-lg lg:text-xl rounded-md flex items-center justify-center">
-                                            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                            <ButtonLoader size={20} color="#ffffff" />
                                         </div>
                                     ) : user ? (
                                         <button
@@ -247,11 +255,18 @@ const Navbar = () => {
                             Home
                         </NavLink>
                         {user && (
-                            <NavLink
-                                to="/add-food"
-                                className={`hover:text-gold-text focus:text-gold-text active:text-gold-text transition-colors text-base duration-300 ease-in-out`}>
-                                Add Food
-                            </NavLink>
+                            <>
+                                <NavLink
+                                    to="/add-food"
+                                    className={`hover:text-gold-text focus:text-gold-text active:text-gold-text transition-colors text-base duration-300 ease-in-out`}>
+                                    Add Food
+                                </NavLink>
+                                <NavLink
+                                    to="/my-foods"
+                                    className={`hover:text-gold-text focus:text-gold-text active:text-gold-text transition-colors text-base duration-300 ease-in-out`}>
+                                    My Foods
+                                </NavLink>
+                            </>
                         )}
                         <NavLink
                             to=""
@@ -276,7 +291,7 @@ const Navbar = () => {
                         <div className="flex-none md:hidden">
                             {loading ? (
                                 <div className="cursor-pointer bg-red-text-500 text-white-text-400 px-5 py-3 sm:px-4 sm:py-2.5 md:px-5 md:py-3 lg:px-6 lg:py-3 text-sm sm:text-base md:text-lg lg:text-xl rounded-md flex items-center justify-center">
-                                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                    <ButtonLoader size={20} color="#ffffff" />
                                 </div>
                             ) : user ? (
                                 <button
