@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const { createUser, updateUser, setUser } = useContext(AuthContext);
+    const { createUser, updateUser, setUser, signInWithGoogle } = useContext(AuthContext);
 
     const navigate = useNavigate();
 
@@ -56,6 +56,19 @@ const Register = () => {
             .catch((error) => {
                 toast.error(`${error.message}`);
             });
+    };
+
+    const handleGoogleSignUp = async () => {
+        try {
+            await signInWithGoogle();
+            toast.success("Congratulations! Registration with Google Successful!");
+            navigate("/", {
+                state: { message: "Congrats! Registration with Google Successful!", type: "success" },
+            });
+        } catch (error) {
+            toast.error("Google sign-up failed! Please try again.");
+            console.error("Google sign-up error:", error);
+        }
     };
 
     return (
@@ -196,6 +209,7 @@ const Register = () => {
                                     <div>
                                         <button
                                             type="button"
+                                            onClick={handleGoogleSignUp}
                                             className="w-full flex items-center justify-center gap-2 bg-base-white text-black-text-500 p-3 rounded-lg border border-black-text-100 font-semibold hover:bg-gray-100 cursor-pointer transition ease-in duration-400">
                                             <FcGoogle size={24} />
                                             Sign up with Google

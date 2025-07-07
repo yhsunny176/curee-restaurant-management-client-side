@@ -9,27 +9,30 @@ const axiosSecure = axios.create({
 });
 
 const useAxios = () => {
-    const { user } = useContext(AuthContext);
-
-    // Get access token
+    const { getStoredToken, user, storeJWTToken } = useContext(AuthContext);
     const getAccessToken = async () => {
-        try {
-            if (!user) {
-                throw new Error("User not authenticated");
+        let token = getStoredToken();
+
+        if (!token && user) {
+            try {
+                token = await storeJWTToken(user);
+            } catch (error) {
+                console.error("Failed to refresh token:", error);
             }
-            return await user.getIdToken();
-        } catch (error) {
-            console.error("Error getting access token:", error);
-            toast.error("Authentication error. Please log in again.");
-            throw error;
         }
+
+        if (!token) {
+            toast.error("Authentication required. Please log in again.");
+            throw new Error("No access token found");
+        }
+        return token;
     };
 
-    // Create auth headers
+    // Create auth headers using stored JWT token
     const createAuthHeaders = async () => {
         try {
             const accessToken = await getAccessToken();
-            return accessToken ? { 'Authorization': `Bearer ${accessToken}` } : {};
+            return accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
         } catch {
             return {};
         }
@@ -41,8 +44,14 @@ const useAxios = () => {
             const response = await axiosSecure.get(url, { headers });
             return response.data;
         } catch (error) {
-            const errorMessage = error.response?.data?.message || error.message || "Failed to fetch data";
-            toast.error(errorMessage);
+            if (error.response?.status === 401) {
+                toast.error("Session expired. Please log in again.");
+            } else if (error.response?.status === 403) {
+                toast.error("Access denied. Insufficient permissions.");
+            } else {
+                const errorMessage = error.response?.data?.message || error.message || "Failed to fetch data";
+                toast.error(errorMessage);
+            }
             throw error;
         }
     };
@@ -55,8 +64,14 @@ const useAxios = () => {
             const result = response.data;
             return result;
         } catch (error) {
-            const errorMessage = error.response?.data?.message || error.message || "Failed to create item";
-            toast.error(errorMessage);
+            if (error.response?.status === 401) {
+                toast.error("Session expired. Please log in again.");
+            } else if (error.response?.status === 403) {
+                toast.error("Access denied. Insufficient permissions.");
+            } else {
+                const errorMessage = error.response?.data?.message || error.message || "Failed to create item";
+                toast.error(errorMessage);
+            }
             throw error;
         }
     };

@@ -12,7 +12,7 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { message, type } = location.state || {};
-    const { signIn } = useContext(AuthContext);
+    const { signIn, signInWithGoogle } = useContext(AuthContext);
     const from = location.state?.from?.pathname || "/";
 
     useEffect(() => {
@@ -41,6 +41,19 @@ const Login = () => {
             .catch(() => {
                 toast.error("One or more Invalid Credentials! Please Try Again!");
             });
+    };
+
+    const handleGoogleSignIn = async () => {
+        try {
+            await signInWithGoogle();
+            toast.success("Congratulations! You Have Logged in Successfully!");
+            setTimeout(() => {
+                navigate(from);
+            });
+        } catch (error) {
+            toast.error("Google sign-in failed! Please try again.");
+            console.error("Google sign-in error:", error);
+        }
     };
 
     return (
@@ -171,6 +184,7 @@ const Login = () => {
                                     <div>
                                         <button
                                             type="button"
+                                            onClick={handleGoogleSignIn}
                                             className="w-full flex items-center justify-center gap-2 bg-base-white text-black-text-500 p-3 rounded-lg border border-black-text-100 font-semibold hover:bg-gray-100 cursor-pointer transition ease-in duration-400">
                                             <FcGoogle size={24} />
                                             Sign in with Google
