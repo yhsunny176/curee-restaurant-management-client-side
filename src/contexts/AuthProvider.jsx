@@ -52,12 +52,10 @@ const AuthProvider = ({ children }) => {
         return signInWithEmailAndPassword(auth, email, password);
     };
 
-    // Social Login Authentication
     const signInWithGoogle = async () => {
         setLoading(true);
         try {
             const result = await signInWithPopup(auth, googleProvider);
-            // JWT token will be automatically stored via onAuthStateChanged
             return result;
         } catch (error) {
             setLoading(false);

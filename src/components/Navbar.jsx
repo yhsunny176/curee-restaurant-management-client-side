@@ -105,7 +105,7 @@ const Navbar = () => {
                                         All Foods
                                     </NavLink>
                                     <NavLink
-                                        to=""
+                                        to="/gallery"
                                         className={`hover:text-red-primary-600 transition-colors text-sm lg:text-base xl:text-lg duration-300 ease-in-out whitespace-nowrap ${
                                             isHome
                                                 ? "text-white-text-400 hover:text-gold-text"
@@ -247,7 +247,7 @@ const Navbar = () => {
                             All Foods
                         </NavLink>
                         <NavLink
-                            to=""
+                            to="/gallery"
                             className={`hover:text-gold-text focus:text-gold-text active:text-gold-text transition-colors text-base duration-300 ease-in-out`}>
                             Gallery
                         </NavLink>

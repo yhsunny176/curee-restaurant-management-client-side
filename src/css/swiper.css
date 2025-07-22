@@ -27,10 +27,3 @@
   max-width: 100%;
 }
 
-.swiper-pagination-bullet {
-  background: var(--color-white-text-400)
-}
-
-.swiper-pagination-bullet-active {
-  background: var(--color-white-transparent)
-}

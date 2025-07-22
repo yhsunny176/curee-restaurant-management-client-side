@@ -100,9 +100,9 @@ const Register = () => {
                 </div>
 
                 {/* Banner + Form Layout */}
-                <div className="flex h-[calc(100vh-120px)] items-stretch">
-                    {/* Left Side / Banner Image */}
-                    <div className="relative w-7/12 h-[calc(100vh-60px)]">
+                <div className="flex min-h-[calc(100vh-120px)] items-stretch">
+                    {/* Left Side / Banner Image - Hidden on mobile */}
+                    <div className="hidden lg:block relative w-7/12 h-[calc(100vh-60px)]">
                         <img
                             src={loginBanner}
                             className="w-full h-full object-cover"
@@ -117,16 +117,16 @@ const Register = () => {
                         </div>
                     </div>
 
-                    {/* Right Side / Register Form */}
-                    <div className="w-5/12 px-4 pt-6 h-[calc(100vh-120px)] flex items-center">
-                        <div className="max-w-9/12 mx-auto rounded-xl bg-base-white">
+                    {/* Right Side / Register Form - Full width on mobile */}
+                    <div className="w-full lg:w-5/12 px-4 sm:px-6 lg:px-4 pt-6 min-h-[calc(100vh-120px)] flex items-center justify-center py-8 lg:py-0">
+                        <div className="w-full max-w-md lg:max-w-9/12 mx-auto rounded-xl bg-base-white">
                             {/* Title & Subtitle */}
                             <div className="flex flex-col gap-3 mt-6">
-                                <h2 className="text-3xl leading-11 sm:text-left font-bold text-black-text-600">
+                                <h2 className="text-2xl sm:text-3xl leading-tight sm:leading-11 text-center lg:text-left font-bold text-black-text-600">
                                     Register to join the curation at
                                     <span className="text-red-primary-600"> CUREÉ.</span>
                                 </h2>
-                                <p className="text-black-text-100 text-sm text-left">
+                                <p className="text-black-text-100 text-sm text-center lg:text-left">
                                     Create your account to experience fine dining and curated moments.
                                 </p>
                             </div>
@@ -139,9 +139,11 @@ const Register = () => {
                                 <form onSubmit={handleRegistration}>
                                     <div className="space-y-5">
                                         <div className="space-y-2">
-                                            <label className="text-md font-bold text-black-text-500">Name</label>
+                                            <label className="text-sm sm:text-md font-bold text-black-text-500">
+                                                Name
+                                            </label>
                                             <input
-                                                className="w-full text-base px-4 py-2 border border-border-gray-200 rounded-lg mt-2 focus:outline-red-text-500 bg-base-white text-black-text-500 placeholder-black-text-100"
+                                                className="w-full text-sm sm:text-base px-3 sm:px-4 py-2 sm:py-3 border border-border-gray-200 rounded-lg mt-2 focus:outline-red-text-500 bg-base-white text-black-text-500 placeholder-black-text-100"
                                                 type="text"
                                                 placeholder="Enter your name"
                                                 name="name"
@@ -149,9 +151,11 @@ const Register = () => {
                                             />
                                         </div>
                                         <div className="space-y-2">
-                                            <label className="text-md font-bold text-black-text-500">Email</label>
+                                            <label className="text-sm sm:text-md font-bold text-black-text-500">
+                                                Email
+                                            </label>
                                             <input
-                                                className="w-full text-base px-4 py-2 border border-border-gray-200 rounded-lg mt-2 focus:outline-red-text-500 bg-base-white text-black-text-500 placeholder-black-text-100"
+                                                className="w-full text-sm sm:text-base px-3 sm:px-4 py-2 sm:py-3 border border-border-gray-200 rounded-lg mt-2 focus:outline-red-text-500 bg-base-white text-black-text-500 placeholder-black-text-100"
                                                 type="email"
                                                 placeholder="Please enter your email"
                                                 name="email"
@@ -159,9 +163,11 @@ const Register = () => {
                                             />
                                         </div>
                                         <div className="space-y-2">
-                                            <label className="text-md font-bold text-black-text-500">Photo URL</label>
+                                            <label className="text-sm sm:text-md font-bold text-black-text-500">
+                                                Photo URL
+                                            </label>
                                             <input
-                                                className="w-full text-base px-4 py-2 border border-border-gray-200 rounded-lg mt-2 focus:outline-red-text-500 bg-base-white text-black-text-500 placeholder-black-text-100"
+                                                className="w-full text-sm sm:text-base px-3 sm:px-4 py-2 sm:py-3 border border-border-gray-200 rounded-lg mt-2 focus:outline-red-text-500 bg-base-white text-black-text-500 placeholder-black-text-100"
                                                 type="url"
                                                 placeholder="Paste your photo URL"
                                                 name="photoURL"
@@ -169,17 +175,19 @@ const Register = () => {
                                             />
                                         </div>
                                         <div className="space-y-2">
-                                            <label className="text-md font-bold text-black-text-500">Password</label>
+                                            <label className="text-sm sm:text-md font-bold text-black-text-500">
+                                                Password
+                                            </label>
                                             <div className="relative">
                                                 <input
-                                                    className="w-full text-base px-4 py-2 border border-border-gray-200 rounded-lg mt-2 focus:outline-none focus:border-gold-text bg-base-white text-black-text-500 placeholder-black-text-100"
+                                                    className="w-full text-sm sm:text-base px-3 sm:px-4 py-2 sm:py-3 border border-border-gray-200 rounded-lg mt-2 focus:outline-none focus:border-gold-text bg-base-white text-black-text-500 placeholder-black-text-100"
                                                     type={showPassword ? "text" : "password"}
                                                     name="password"
                                                     placeholder="Create a password"
                                                     required
                                                 />
                                                 <span
-                                                    className="absolute inset-y-0 right-4 top-[0.55rem] flex items-center text-xl text-black-text-100 cursor-pointer"
+                                                    className="absolute inset-y-0 right-3 sm:right-4 top-[0.55rem] flex items-center text-lg sm:text-xl text-black-text-100 cursor-pointer"
                                                     onClick={() => setShowPassword((prev) => !prev)}>
                                                     {showPassword ? (
                                                         <AiOutlineEyeInvisible className="text-red-primary-600" />
@@ -202,7 +210,7 @@ const Register = () => {
 
                                 <div className="space-y-4">
                                     <div className="flex items-center justify-center">
-                                        <p className="text-md text-black-text-500 font-medium mt-6">or</p>
+                                        <p className="text-sm sm:text-md text-black-text-500 font-medium mt-6">or</p>
                                     </div>
 
                                     {/* Google Register Button */}
@@ -212,12 +220,12 @@ const Register = () => {
                                             onClick={handleGoogleSignUp}
                                             className="w-full flex items-center justify-center gap-2 bg-base-white text-black-text-500 p-3 rounded-lg border border-black-text-100 font-semibold hover:bg-gray-100 cursor-pointer transition ease-in duration-400">
                                             <FcGoogle size={24} />
-                                            Sign up with Google
+                                            <span className="text-sm sm:text-base">Sign up with Google</span>
                                         </button>
                                     </div>
 
                                     <div>
-                                        <p className="text-black-text-100 text-center">
+                                        <p className="text-sm sm:text-base text-black-text-100 text-center">
                                             Already have an Account?
                                             <span className="ml-2">
                                                 <Link
