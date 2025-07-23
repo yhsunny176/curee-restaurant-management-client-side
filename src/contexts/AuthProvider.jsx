@@ -19,17 +19,22 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    // Store JWT token and refresh token
     const storeJWTToken = async (firebaseUser) => {
         try {
             if (firebaseUser) {
                 // Get Firebase ID token
                 const token = await firebaseUser.getIdToken();
-                // Store JWT token on client side
+                // Get Firebase refresh token
+                const refreshToken = firebaseUser.refreshToken;
+                // Store both tokens on client side
                 localStorage.setItem("access-token", token);
+                localStorage.setItem("refresh-token", refreshToken);
                 return token;
             } else {
-                // Remove token when user logs out
+                // Remove tokens when user logs out
                 localStorage.removeItem("access-token");
+                localStorage.removeItem("refresh-token");
                 return null;
             }
         } catch (error) {
@@ -40,6 +45,11 @@ const AuthProvider = ({ children }) => {
 
     const getStoredToken = () => {
         return localStorage.getItem("access-token");
+    };
+
+    // Get stored refresh token
+    const getStoredRefreshToken = () => {
+        return localStorage.getItem("refresh-token");
     };
 
     const createUser = (email, password) => {
@@ -69,8 +79,9 @@ const AuthProvider = ({ children }) => {
     };
 
     const logOut = () => {
-        // Remove JWT token from client storage as required
+        // Remove JWT and refresh token from client storage as required
         localStorage.removeItem("access-token");
+        localStorage.removeItem("refresh-token");
         return signOut(auth);
     };
 
@@ -102,6 +113,7 @@ const AuthProvider = ({ children }) => {
         logOut,
         storeJWTToken,
         getStoredToken,
+        getStoredRefreshToken,
     };
 
     return <AuthContext.Provider value={authData}>{children}</AuthContext.Provider>;

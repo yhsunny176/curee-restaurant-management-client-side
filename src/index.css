@@ -8,32 +8,6 @@
   themes: light --default;
 }
 
-
-
-
-/* --color-red-primary-600: var(--red-prim-600);
-  --color-red-primary-700: oklch(0.474 0.1854 29.53);
-  --color-black-primary: oklch(0.1969 0.0016 17.29);
-
-  --color-red-text-500: oklch(0.6119 0.2342 29.52);
-  --color-black-text-100: oklch(0.5024 0.0038 17.28);
-  --color-black-text-500: oklch(0.2232 0.0016 17.27);
-  --color-black-text-600: oklch(0.1969 0.0016 17.29);
-  --color-white-text-100: oklch(0.8853 0 0);
-  --color-white-text-400: oklch(0.9948 0.0011 17.18);
-
-  --color-gray-text-300: oklch(0.5024 0.0038 17.28);
-  --color-base-white: oklch(0.9948 0.0011 17.18);
-  --color-gold-text: oklch(0.8238 0.1678 90.3);
-
-  --color-border-gray-100: oklch(0.9116 0.0109 17.36);
-  --color-border-gray-200: oklch(0.8662 0.0033 17.22);
-
-  --color-hover-gray-100: oklch(0.9627 0.0021 17.19);
-
-  --color-overlay-dark: oklch(0.1776 0 0 / 72%);
-  --color-white-transparent: oklch(0.9948 0.0011 17.18 / 60%); */
-
 @theme {
   /* Fonts */
   --font-head: "Cinzel", "serif";
