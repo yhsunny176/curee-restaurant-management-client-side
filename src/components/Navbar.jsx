@@ -53,7 +53,7 @@ const Navbar = () => {
                 <div className="drawer-content flex flex-col border-b border-gray-border-primary">
                     {/* Navbar */}
                     <div
-                        className={`navbar bg-transparent w-full justify-between ${
+                        className={`navbar bg-transparent w-full justify-between backdrop-filter backdrop-blur-2xl bg-opacity-0 ${
                             isLogin || isRegister ? "lg:max-w-11/12 lg:mx-auto" : "lg:max-w-7xl lg:mx-auto"
                         } lg:py-8 px-3 sm:px-4 lg:px-6 xl:px-8`}>
                         <div className="flex-none lg:hidden">

@@ -48,7 +48,7 @@ const useAxios = () => {
     // Helper to check if JWT token is expired
     function isTokenExpired(token) {
         try {
-            const payload = JSON.parse(atob(token.split('.')[1]));
+            const payload = JSON.parse(atob(token.split(".")[1]));
             // exp is in seconds
             return payload.exp * 1000 < Date.now();
         } catch {
@@ -65,27 +65,26 @@ const useAxios = () => {
             return {};
         }
     };
-    // GET request with retry on token expiration
-    const get = async (url) => {
-        try {
-            const headers = await createAuthHeaders();
-            const response = await axiosSecure.get(url, { headers });
-            return response.data;
-        } catch (error) {
-            // If token expired, try to refresh and retry ONCE
+    // Axios response interceptor for token refresh and retry
+    axiosSecure.interceptors.response.use(
+        (response) => response,
+        async (error) => {
+            const originalRequest = error.config;
+            // Only retry once
             if (
                 (error.response?.status === 401 || error.response?.status === 403) &&
                 error.response?.data?.message?.toLowerCase().includes("token") &&
-                user
+                user &&
+                !originalRequest._retry
             ) {
+                originalRequest._retry = true;
                 try {
                     await refreshIdToken();
                     const headers = await createAuthHeaders();
-                    const response = await axiosSecure.get(url, { headers });
-                    return response.data;
-                } catch (retryError) {
-                    toast.error(retryError);
-                    // fall through to error handling below
+                    originalRequest.headers = { ...originalRequest.headers, ...headers };
+                    return axiosSecure(originalRequest);
+                } catch {
+                    toast.error("Token refresh failed. Please log in again.");
                 }
             }
             if (error.response?.status === 401) {
@@ -93,48 +92,25 @@ const useAxios = () => {
             } else if (error.response?.status === 403) {
                 toast.error("Access denied. Insufficient permissions.");
             } else {
-                const errorMessage = error.response?.data?.message || error.message || "Failed to fetch data";
+                const errorMessage = error.response?.data?.message || error.message || "Request failed";
                 toast.error(errorMessage);
             }
-            throw error;
+            return Promise.reject(error);
         }
+    );
+
+    // GET request
+    const get = async (url) => {
+        const headers = await createAuthHeaders();
+        const response = await axiosSecure.get(url, { headers });
+        return response.data;
     };
 
-    // POST request with retry on token expiration
+    // POST request
     const post = async (url, data) => {
-        try {
-            const headers = await createAuthHeaders();
-            const response = await axiosSecure.post(url, data, { headers });
-            const result = response.data;
-            return result;
-        } catch (error) {
-            // If token expired, try to refresh and retry ONCE
-            if (
-                (error.response?.status === 401 || error.response?.status === 403) &&
-                error.response?.data?.message?.toLowerCase().includes("token") &&
-                user
-            ) {
-                try {
-                    await refreshIdToken();
-                    const headers = await createAuthHeaders();
-                    const response = await axiosSecure.post(url, data, { headers });
-                    const result = response.data;
-                    return result;
-                } catch (retryError) {
-                    toast.error(retryError);
-                    // fall through to error handling below
-                }
-            }
-            if (error.response?.status === 401) {
-                toast.error("Session expired. Please log in again.");
-            } else if (error.response?.status === 403) {
-                toast.error("Access denied. Insufficient permissions.");
-            } else {
-                const errorMessage = error.response?.data?.message || error.message || "Failed to create item";
-                toast.error(errorMessage);
-            }
-            throw error;
-        }
+        const headers = await createAuthHeaders();
+        const response = await axiosSecure.post(url, data, { headers });
+        return response.data;
     };
 
     return {
