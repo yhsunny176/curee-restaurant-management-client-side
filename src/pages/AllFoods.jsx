@@ -38,10 +38,10 @@ const AllFoods = () => {
     }
 
     return (
-        <div className="min-h-screen bg-base-white py-6 md:py-8 lg:py-12 relative overflow-hidden">
+        <div className="min-h-screen bg-background-primary py-6 md:py-8 lg:py-12 relative overflow-hidden">
             {/* Background Title Effect */}
             <div className="absolute top-0 left-0 right-0 flex justify-center pointer-events-none">
-                <h1 className="text-[6rem] md:text-[10rem] lg:text-[15rem] xl:text-[18rem] font-bold text-red-100 opacity-30 select-none whitespace-nowrap">
+                <h1 className="text-[6rem] md:text-[10rem] lg:text-[15rem] xl:text-[18rem] font-bold text-bg-text select-none whitespace-nowrap">
                     ALL FOODS
                 </h1>
             </div>
@@ -49,8 +49,8 @@ const AllFoods = () => {
             <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 relative z-10">
                 {/* Header */}
                 <div className="text-center mb-6 md:mb-8">
-                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-black-text-600 mb-3 md:mb-4">All Food Items</h1>
-                    <p className="text-black-text-100 text-sm md:text-base lg:text-lg max-w-2xl mx-auto px-2">
+                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-black-text-dark mb-3 md:mb-4">All Food Items</h1>
+                    <p className="text-subtitle-color text-sm md:text-base lg:text-lg max-w-2xl mx-auto px-2">
                         Discover all the amazing food items shared by our community members.
                     </p>
                 </div>
@@ -72,8 +72,8 @@ const AllFoods = () => {
                                 />
                             </svg>
                         </div>
-                        <h3 className="text-lg md:text-xl font-medium text-black-text-500 mb-2">No food items found</h3>
-                        <p className="text-black-text-100 mb-4 md:mb-6 text-sm md:text-base">No food items have been shared yet.</p>
+                        <h3 className="text-lg md:text-xl font-medium text-card-main-text-base mb-2">No food items found</h3>
+                        <p className="text-card-main-text mb-4 md:mb-6 text-sm md:text-base">No food items have been shared yet.</p>
                     </div>
                 ) : (
                     <>
@@ -81,7 +81,7 @@ const AllFoods = () => {
                             {allFoods.map((food) => (
                                 <div
                                     key={food._id}
-                                    className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 border border-gray-200 flex flex-col h-full cursor-pointer">
+                                    className="bg-card-background rounded-lg overflow-hidden hover:shadow-card-shadow transition-shadow duration-300 border border-card-stroke flex flex-col h-full cursor-pointer">
                                     <div className="relative">
                                         <img
                                             src={food.foodImage}
@@ -89,32 +89,32 @@ const AllFoods = () => {
                                             className="w-full h-40 md:h-48 object-cover"
                                         />
                                         <div className="absolute top-2 md:top-3 right-2 md:right-3">
-                                            <span className="inline-flex items-center px-2 md:px-4 py-1.5 md:py-3 rounded-lg md:rounded-xl text-xs md:text-md font-medium bg-red-600 text-white">
+                                            <span className="inline-flex items-center px-2 md:px-4 py-1.5 md:py-3 rounded-lg md:rounded-xl text-sm md:text-md font-medium bg-card-tablet text-white-base border border-card-tablet-stroke">
                                                 {food.foodCategory}
                                             </span>
                                         </div>
                                     </div>
 
                                     <div className="p-4 md:p-6 flex flex-col flex-grow">
-                                        <h3 className="font-bold text-lg md:text-xl text-gray-900 mb-2 md:mb-3">{food.foodName}</h3>
+                                        <h3 className="font-bold text-lg md:text-xl text-card-main-text mb-2 md:mb-3">{food.foodName}</h3>
 
-                                        <p className="text-gray-600 text-xs md:text-sm mb-4 md:mb-6 leading-relaxed line-clamp-2">
+                                        <p className="text-card-subtext text-xs md:text-sm mb-4 md:mb-6 leading-relaxed line-clamp-2">
                                             {food.description}
                                         </p>
 
-                                        <div className="mt-auto space-y-2 md:space-y-3">
-                                            <div className="flex justify-between items-center text-sm md:text-lg text-gray-700">
-                                                <span>
+                                        <div className="mt-auto space-y-2 md:space-y-6">
+                                            <div className="flex justify-between items-center text-sm md:text-lg border-y border-y-card-stroke py-3">
+                                                <span className="text-card-main-text">
                                                     <span className="font-medium">Origin :</span> {food.foodOrigin}
                                                 </span>
-                                                <span>
-                                                    <span className="font-medium text-red-600">Quantity:</span>{" "}
+                                                <span className="text-card-main-text">
+                                                    <span className="font-medium text-card-sec-subtext">Quantity:</span>{" "}
                                                     {food.quantity}
                                                 </span>
                                             </div>
 
                                             <div className="flex justify-end items-center">
-                                                <div className="text-xl md:text-3xl font-bold text-gray-900">৳{food.price}</div>
+                                                <div className="text-xl md:text-3xl font-bold text-card-main-text">৳{food.price}</div>
                                             </div>
 
                                             <button

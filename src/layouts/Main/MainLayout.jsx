@@ -23,7 +23,7 @@ const MainLayout = () => {
                 </>
             ) : (
                 <>
-                    <div className="sticky top-0 z-50 bg-base-white shadow-sm">
+                    <div className="sticky top-0 z-50 bg-background-primary border-b border-gray-border-primary shadow-sm">
                         <Navbar />
                     </div>
                     <main>

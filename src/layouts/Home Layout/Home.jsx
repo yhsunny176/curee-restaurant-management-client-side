@@ -43,7 +43,7 @@ const Home = () => {
                 <Banner></Banner>
             </div>
 
-            <div>
+            <div className="bg-background-primary">
                 <TopFoodItems></TopFoodItems>
             </div>
         </div>

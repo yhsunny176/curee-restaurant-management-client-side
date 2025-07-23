@@ -96,7 +96,7 @@ const AddFood = () => {
     };
 
     return (
-        <div className="min-h-screen bg-base-white py-6 md:py-8 lg:py-12">
+        <div className="min-h-screen bg-background-primary py-6 md:py-8 lg:py-12">
             <div>
                 <ToastContainer
                     position="top-center"
@@ -120,25 +120,25 @@ const AddFood = () => {
             <div className="max-w-4xl mx-auto px-4 md:px-6 lg:px-8">
                 {/* Header */}
                 <div className="text-center mb-6 md:mb-8">
-                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-black-text-600 mb-3 md:mb-4">
+                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-heading-color mb-3 md:mb-4">
                         Add New Food Item
                     </h1>
-                    <p className="text-black-text-100 text-sm md:text-base lg:text-lg max-w-2xl mx-auto px-2">
+                    <p className="text-subtitle-color text-sm md:text-base lg:text-lg max-w-2xl mx-auto px-2">
                         Share your delicious food creation with our community. Fill in the details below to add your
                         food item.
                     </p>
                 </div>
 
                 {/* Form Container */}
-                <div className="bg-base-white rounded-xl shadow-card border border-border-gray-200 p-4 md:p-6 lg:p-8">
+                <div className="bg-background-form rounded-xl shadow-card border border-gray-border-primary p-4 md:p-6 lg:p-8">
                     <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
                         {/* Food Name */}
                         <div className="space-y-2">
-                            <label className="block text-sm md:text-md font-bold text-black-text-500 mb-2">
-                                Food Name <span className="text-red-primary-600">*</span>
+                            <label className="block text-sm md:text-md font-bold text-black-text-base mb-2">
+                                Food Name <span className="text-red-base">*</span>
                             </label>
                             <input
-                                className="w-full text-sm md:text-base px-3 md:px-4 py-2 md:py-3 border border-border-gray-200 rounded-lg focus:outline-none focus:border-red-primary-600 bg-base-white text-black-text-500 placeholder-black-text-100"
+                                className="w-full text-sm md:text-base px-3 md:px-4 py-2 md:py-3 border border-input-stroke rounded-lg focus:outline-none focus:border-red-base bg-input-background text-black-text-base placeholder-black-text-light"
                                 type="text"
                                 name="foodName"
                                 value={formData.foodName}
@@ -150,11 +150,11 @@ const AddFood = () => {
 
                         {/* Food Image */}
                         <div className="space-y-2">
-                            <label className="block text-sm md:text-md font-bold text-black-text-500 mb-2">
-                                Food Image <span className="text-red-primary-600">*</span>
+                            <label className="block text-sm md:text-md font-bold text-black-text-base mb-2">
+                                Food Image <span className="text-red-base">*</span>
                             </label>
                             <input
-                                className="w-full text-sm md:text-base px-3 md:px-4 py-2 md:py-3 border border-border-gray-200 rounded-lg focus:outline-none focus:border-red-primary-600 bg-base-white text-black-text-500 placeholder-black-text-100"
+                                className="w-full text-sm md:text-base px-3 md:px-4 py-2 md:py-3 border border-input-stroke rounded-lg focus:outline-none focus:border-red-base bg-input-background text-black-text-base placeholder-black-text-light"
                                 type="url"
                                 name="foodImage"
                                 value={formData.foodImage}
@@ -166,12 +166,12 @@ const AddFood = () => {
 
                         {/* Food Category */}
                         <div className="space-y-2">
-                            <label className="block text-sm md:text-md font-bold text-black-text-500 mb-2">
-                                Food Category <span className="text-red-primary-600">*</span>
+                            <label className="block text-sm md:text-md font-bold text-black-text-base mb-2">
+                                Food Category <span className="text-red-base">*</span>
                             </label>
                             <div className="relative">
                                 <select
-                                    className="w-full text-sm md:text-base px-3 md:px-4 py-2 md:py-3 pr-8 md:pr-10 border border-border-gray-200 rounded-lg focus:outline-none focus:border-red-primary-600 bg-base-white text-black-text-500 appearance-none cursor-pointer"
+                                    className="w-full text-sm md:text-base px-3 md:px-4 py-2 md:py-3 pr-8 md:pr-10 border border-input-stroke rounded-lg focus:outline-none focus:border-red-base bg-input-background text-black-text-base appearance-none cursor-pointer"
                                     name="foodCategory"
                                     value={formData.foodCategory}
                                     onChange={handleInputChange}
@@ -211,11 +211,11 @@ const AddFood = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                             {/* Quantity */}
                             <div className="space-y-2">
-                                <label className="block text-sm md:text-md font-bold text-black-text-500 mb-2">
-                                    Quantity <span className="text-red-primary-600">*</span>
+                                <label className="block text-sm md:text-md font-bold text-black-text-base mb-2">
+                                    Quantity <span className="text-red-base">*</span>
                                 </label>
                                 <input
-                                    className="w-full text-sm md:text-base px-3 md:px-4 py-2 md:py-3 border border-border-gray-200 rounded-lg focus:outline-none focus:border-red-primary-600 bg-base-white text-black-text-500 placeholder-black-text-100"
+                                    className="w-full text-sm md:text-base px-3 md:px-4 py-2 md:py-3 border border-input-stroke rounded-lg focus:outline-none focus:border-red-base bg-input-background text-black-text-base placeholder-black-text-light"
                                     type="number"
                                     name="quantity"
                                     value={formData.quantity}
@@ -228,11 +228,11 @@ const AddFood = () => {
 
                             {/* Price */}
                             <div className="space-y-2">
-                                <label className="block text-sm md:text-md font-bold text-black-text-500 mb-2">
-                                    Price <span className="text-red-primary-600">*</span>
+                                <label className="block text-sm md:text-md font-bold text-black-text-base mb-2">
+                                    Price <span className="text-red-base">*</span>
                                 </label>
                                 <input
-                                    className="w-full text-sm md:text-base px-3 md:px-4 py-2 md:py-3 border border-border-gray-200 rounded-lg focus:outline-none focus:border-red-primary-600 bg-base-white text-black-text-500 placeholder-black-text-100"
+                                    className="w-full text-sm md:text-base px-3 md:px-4 py-2 md:py-3 border border-input-stroke rounded-lg focus:outline-none focus:border-red-base bg-input-background text-black-text-base placeholder-black-text-light"
                                     type="number"
                                     name="price"
                                     value={formData.price}
@@ -247,11 +247,11 @@ const AddFood = () => {
 
                         {/* Food Origin */}
                         <div className="space-y-2">
-                            <label className="block text-sm md:text-md font-bold text-black-text-500 mb-2">
-                                Food Origin (Country) <span className="text-red-primary-600">*</span>
+                            <label className="block text-sm md:text-md font-bold text-black-text-base mb-2">
+                                Food Origin (Country) <span className="text-red-base">*</span>
                             </label>
                             <input
-                                className="w-full text-sm md:text-base px-3 md:px-4 py-2 md:py-3 border border-border-gray-200 rounded-lg focus:outline-none focus:border-red-primary-600 bg-base-white text-black-text-500 placeholder-black-text-100"
+                                className="w-full text-sm md:text-base px-3 md:px-4 py-2 md:py-3 border border-input-stroke rounded-lg focus:outline-none focus:border-red-base bg-input-background text-black-text-base placeholder-black-text-light"
                                 type="text"
                                 name="foodOrigin"
                                 value={formData.foodOrigin}
@@ -263,11 +263,11 @@ const AddFood = () => {
 
                         {/* Description */}
                         <div className="space-y-2">
-                            <label className="block text-sm md:text-md font-bold text-black-text-500 mb-2">
-                                A Short Description <span className="text-red-primary-600">*</span>
+                            <label className="block text-sm md:text-md font-bold text-black-text-base mb-2">
+                                A Short Description <span className="text-red-base">*</span>
                             </label>
                             <textarea
-                                className="w-full text-sm md:text-base px-3 md:px-4 py-2 md:py-3 border border-border-gray-200 rounded-lg focus:outline-none focus:border-red-primary-600 bg-base-white text-black-text-500 placeholder-black-text-100 resize-vertical"
+                                className="w-full text-sm md:text-base px-3 md:px-4 py-2 md:py-3 border border-input-stroke rounded-lg focus:outline-none focus:border-red-base bg-input-background text-black-text-base placeholder-black-text-light resize-vertical"
                                 name="description"
                                 value={formData.description}
                                 onChange={handleInputChange}
@@ -278,12 +278,12 @@ const AddFood = () => {
                         </div>
 
                         {/* Added By Info */}
-                        <div className="bg-gray-50 rounded-lg p-3 md:p-4 border border-border-gray-200">
-                            <h3 className="text-sm md:text-md font-bold text-black-text-500 mb-2">Added By:</h3>
-                            <p className="text-sm md:text-base text-black-text-100">
+                        <div className="bg-input-background rounded-lg p-3 md:p-4 border border-input-stroke">
+                            <h3 className="text-sm md:text-md font-bold text-black-text-base mb-2">Added By:</h3>
+                            <p className="text-sm md:text-base text-black-text-light">
                                 <span className="font-medium">Name:</span> {user?.displayName || "Unknown User"}
                             </p>
-                            <p className="text-sm md:text-base text-black-text-100">
+                            <p className="text-sm md:text-base text-black-text-light">
                                 <span className="font-medium">Email:</span> {user?.email || "No email"}
                             </p>
                         </div>
@@ -296,8 +296,8 @@ const AddFood = () => {
                                 className={`w-full flex justify-center items-center py-2.5 md:py-3 px-4 md:px-6 rounded-lg font-semibold transition ease-in duration-400 text-base md:text-lg ${
                                     loading
                                         ? "bg-gray-400 cursor-not-allowed"
-                                        : "bg-red-primary-600 hover:bg-red-primary-700 hover:shadow-card cursor-pointer"
-                                } text-white-text-400`}>
+                                        : "bg-red-base hover:bg-red-dark hover:shadow-card cursor-pointer"
+                                } text-white-text-primary`}>
                                 {loading ? (
                                     <>
                                         <ButtonLoader size={20} color="#ffffff" />
