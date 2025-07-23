@@ -1,22 +1,25 @@
+
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
-import useAxios from "../hooks/useAxios";
 import Loader from "../components/Loader";
-import { ToastContainer, Bounce, toast } from "react-toastify";
+import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useAxiosSecure from "../hooks/useAxiosSecure";
+
 
 const MyFoods = () => {
-    const { user } = useContext(AuthContext);
-    const { get } = useAxios();
+    const { user, loading: authLoading } = useContext(AuthContext);
+    const { get } = useAxiosSecure();
     const [myFoods, setMyFoods] = useState([]);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        if (user?.email) {
+        if (!authLoading && user?.email) {
             const fetchMyFoods = async () => {
                 try {
                     setLoading(true);
-                    const result = await get(`/foods?email=${user.email}`);
+                    const result = await get(`/my-foods/${user?.email}`);
+                    console.log(result)
 
                     if (result && result.success) {
                         setMyFoods(result.data);
@@ -35,13 +38,12 @@ const MyFoods = () => {
                     setLoading(false);
                 }
             };
-
             fetchMyFoods();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user?.email]);
+    }, [user?.email, authLoading]);
 
-    if (loading) {
+    if (authLoading || loading) {
         return <Loader />;
     }
 
@@ -176,19 +178,6 @@ const MyFoods = () => {
                     </>
                 )}
             </div>
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-                transition={Bounce}
-            />
         </div>
     );
 };

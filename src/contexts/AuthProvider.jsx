@@ -11,6 +11,7 @@ import {
     updateProfile,
 } from "firebase/auth";
 import { AuthContext } from "./AuthContext";
+import { toast } from "react-toastify";
 
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
@@ -38,7 +39,7 @@ const AuthProvider = ({ children }) => {
                 return null;
             }
         } catch (error) {
-            console.error("Error storing JWT token:", error);
+            toast.error("Error storing JWT token:", error);
             return null;
         }
     };
@@ -87,14 +88,12 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-            setUser(currentUser);
-            // Store JWT token on client side when user state changes
             if (currentUser) {
                 await storeJWTToken(currentUser);
             } else {
                 localStorage.removeItem("access-token");
             }
-
+            setUser(currentUser);
             setLoading(false);
         });
         return () => {

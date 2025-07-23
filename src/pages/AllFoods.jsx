@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import useAxios from "../hooks/useAxios";
 import Loader from "../components/Loader";
-import { ToastContainer, Bounce } from "react-toastify";
+import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router";
+import axiosInstance from "@/hooks/useAxios";
 
 const AllFoods = () => {
-    const { get } = useAxios();
     const [allFoods, setAllFoods] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -13,13 +13,10 @@ const AllFoods = () => {
         const fetchAllFoods = async () => {
             try {
                 setLoading(true);
-                const result = await get("/foods");
-
-                if (result && result.success) {
-                    setAllFoods(result.data);
-                }
+                const result = await axiosInstance.get("/all-foods");
+                setAllFoods(result);
             } catch (err) {
-                console.error("Failed to fetch foods:", err);
+                toast.error("Failed to fetch foods:", err);
             } finally {
                 setLoading(false);
             }
@@ -29,10 +26,6 @@ const AllFoods = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const handleDetails = (foodId) => {
-        console.log("Navigate to details page for food:", foodId);
-    };
-
     if (loading) {
         return <Loader />;
     }
@@ -40,16 +33,20 @@ const AllFoods = () => {
     return (
         <div className="min-h-screen bg-background-primary py-6 md:py-8 lg:py-12 relative overflow-hidden">
             {/* Background Title Effect */}
-            <div className="absolute top-0 left-0 right-0 flex justify-center pointer-events-none">
-                <h1 className="text-[6rem] md:text-[10rem] lg:text-[15rem] xl:text-[18rem] font-bold text-bg-text select-none whitespace-nowrap">
-                    ALL FOODS
-                </h1>
-            </div>
-            
+            {allFoods.length > 0 && (
+                <div className="absolute top-0 left-0 right-0 flex justify-center pointer-events-none">
+                    <h1 className="text-[6rem] md:text-[10rem] lg:text-[15rem] xl:text-[18rem] font-bold text-bg-text select-none whitespace-nowrap">
+                        ALL FOODS
+                    </h1>
+                </div>
+            )}
+
             <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 relative z-10">
                 {/* Header */}
                 <div className="text-center mb-6 md:mb-8">
-                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-black-text-dark mb-3 md:mb-4">All Food Items</h1>
+                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-black-text-dark mb-3 md:mb-4">
+                        All Food Items
+                    </h1>
                     <p className="text-subtitle-color text-sm md:text-base lg:text-lg max-w-2xl mx-auto px-2">
                         Discover all the amazing food items shared by our community members.
                     </p>
@@ -72,8 +69,10 @@ const AllFoods = () => {
                                 />
                             </svg>
                         </div>
-                        <h3 className="text-lg md:text-xl font-medium text-card-main-text-base mb-2">No food items found</h3>
-                        <p className="text-card-main-text mb-4 md:mb-6 text-sm md:text-base">No food items have been shared yet.</p>
+                        <h3 className="text-lg md:text-xl font-medium text-card-main-text mb-2">No food items found</h3>
+                        <p className="text-card-main-text mb-4 md:mb-6 text-sm md:text-base">
+                            No food items have been added yet.
+                        </p>
                     </div>
                 ) : (
                     <>
@@ -96,7 +95,9 @@ const AllFoods = () => {
                                     </div>
 
                                     <div className="p-4 md:p-6 flex flex-col flex-grow">
-                                        <h3 className="font-bold text-lg md:text-xl text-card-main-text mb-2 md:mb-3">{food.foodName}</h3>
+                                        <h3 className="font-bold text-lg md:text-xl text-card-main-text mb-2 md:mb-3">
+                                            {food.foodName}
+                                        </h3>
 
                                         <p className="text-card-subtext text-xs md:text-sm mb-4 md:mb-6 leading-relaxed line-clamp-2">
                                             {food.description}
@@ -114,11 +115,12 @@ const AllFoods = () => {
                                             </div>
 
                                             <div className="flex justify-end items-center">
-                                                <div className="text-xl md:text-3xl font-bold text-card-main-text">৳{food.price}</div>
+                                                <div className="text-xl md:text-3xl font-bold text-card-main-text">
+                                                    ৳{food.price}
+                                                </div>
                                             </div>
 
                                             <button
-                                                onClick={() => handleDetails(food._id)}
                                                 className="w-full inline-flex items-center justify-center px-3 md:px-4 py-2 md:py-3 text-xs md:text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md transition-colors duration-300 cursor-pointer"
                                                 title="View food details">
                                                 <svg
@@ -140,7 +142,7 @@ const AllFoods = () => {
                                                         strokeWidth="2"
                                                     />
                                                 </svg>
-                                                View Details
+                                                <Link to="/food-detail/">View Details</Link>
                                             </button>
                                         </div>
                                     </div>
@@ -150,19 +152,6 @@ const AllFoods = () => {
                     </>
                 )}
             </div>
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-                transition={Bounce}
-            />
         </div>
     );
 };

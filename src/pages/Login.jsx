@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useLocation, useNavigate } from "react-router";
 import loginBanner from "../assets/Banner Images/banner-4.webp";
-import { Bounce, toast, ToastContainer } from "react-toastify";
+import { Bounce, toast } from "react-toastify";
 import { AuthContext } from "../contexts/AuthContext";
 
 const Login = () => {
@@ -64,23 +64,6 @@ const Login = () => {
             </header>
 
             <div>
-                <ToastContainer
-                    position="top-center"
-                    autoClose={5000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick={false}
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="light"
-                    transition={Bounce}
-                    toastClassName={() =>
-                        "relative w-[95%] sm:w-full sm:max-w-md mx-auto bg-white text-black shadow-lg rounded-lg p-4 mt-15"
-                    }
-                    bodyClassName={() => "text-sm sm:text-base font-medium"}
-                />
             </div>
 
             {/* Responsive Layout */}

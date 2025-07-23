@@ -181,7 +181,7 @@ const Navbar = () => {
                                                     Add Food
                                                 </Link>
                                                 <Link
-                                                    to="/my-foods"
+                                                    to={`/my-foods/${user?.email}`}
                                                     className="block px-4 py-2 text-black-text-base hover:bg-gray-50 hover:text-red-base transition-colors duration-200"
                                                     onClick={() => setIsDropdownOpen(false)}>
                                                     My Foods

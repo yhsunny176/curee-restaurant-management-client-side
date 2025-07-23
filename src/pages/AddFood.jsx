@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import { AuthContext } from "../contexts/AuthContext";
-import { toast, ToastContainer, Bounce } from "react-toastify";
+import { toast, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
-import useAxios from "../hooks/useAxios";
+import useAxios from "../hooks/useAxiosSecure";
 import ButtonLoader from "../components/ButtonLoader";
 
 const AddFood = () => {
@@ -20,6 +20,7 @@ const AddFood = () => {
         price: "",
         foodOrigin: "",
         description: "",
+        purchaseCount: 0,
     });
 
     const handleInputChange = (e) => {
@@ -98,23 +99,6 @@ const AddFood = () => {
     return (
         <div className="min-h-screen bg-background-primary py-6 md:py-8 lg:py-12">
             <div>
-                <ToastContainer
-                    position="top-center"
-                    autoClose={5000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick={false}
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="light"
-                    transition={Bounce}
-                    toastClassName={() =>
-                        "relative w-[95%] sm:w-full sm:max-w-md mx-auto bg-white text-black shadow-lg rounded-lg p-4 mt-15"
-                    }
-                    bodyClassName={() => "text-sm sm:text-base font-medium"}
-                />
             </div>
 
             <div className="max-w-4xl mx-auto px-4 md:px-6 lg:px-8">
