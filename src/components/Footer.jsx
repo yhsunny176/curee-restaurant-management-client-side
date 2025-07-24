@@ -27,7 +27,7 @@ const Footer = () => {
 
                     {/* Basic Links */}
                     <div className="flex flex-col items-center gap-3 lg:items-start">
-                        <span className="text-lg text-red-dark font-bold">Links</span>
+                        <span className="text-lg text-red-dark font-bold">Links:</span>
                         <div className="flex flex-wrap justify-center md:justify-start gap-3 sm:gap-5">
                             <NavLink
                                 to="/"
@@ -58,8 +58,8 @@ const Footer = () => {
                     </div>
 
                     {/* Social Links */}
-                    <div className="flex flex-col items-center gap-3 lg:items-end">
-                        <span className="text-lg text-red-dark font-bold">Social Links</span>
+                    <div className="flex flex-col items-center gap-3 lg:items-start">
+                        <span className="text-lg text-red-dark font-bold">Social Links:</span>
                         <div className="flex gap-3 sm:gap-5 justify-center md:justify-end">
                             <Link
                                 to="https://www.facebook.com/yeasinulhaqsani"
