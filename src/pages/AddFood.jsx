@@ -20,7 +20,6 @@ const AddFood = () => {
         price: "",
         foodOrigin: "",
         description: "",
-        purchaseCount: 0,
     });
 
     const handleInputChange = (e) => {
@@ -51,9 +50,10 @@ const AddFood = () => {
                 quantity: parseInt(formData.quantity),
                 price: parseFloat(formData.price),
                 addedBy: {
-                    name: user?.displayName || "Unknown User",
-                    email: user?.email || "No email",
+                    name: user?.displayName || "",
+                    email: user?.email || "",
                 },
+                purchaseCount: 0,
                 createdAt: new Date().toISOString(),
             };
 
@@ -98,8 +98,7 @@ const AddFood = () => {
 
     return (
         <div className="min-h-screen bg-background-primary py-6 md:py-8 lg:py-12">
-            <div>
-            </div>
+            <div></div>
 
             <div className="max-w-4xl mx-auto px-4 md:px-6 lg:px-8">
                 {/* Header */}
@@ -261,15 +260,32 @@ const AddFood = () => {
                             />
                         </div>
 
-                        {/* Added By Info */}
-                        <div className="bg-input-background rounded-lg p-3 md:p-4 border border-input-stroke">
-                            <h3 className="text-sm md:text-md font-bold text-black-text-base mb-2">Added By:</h3>
-                            <p className="text-sm md:text-base text-black-text-light">
-                                <span className="font-medium">Name:</span> {user?.displayName || "Unknown User"}
-                            </p>
-                            <p className="text-sm md:text-base text-black-text-light">
-                                <span className="font-medium">Email:</span> {user?.email || "No email"}
-                            </p>
+                        {/* Added By Info (Uneditable Input Fields, display only) */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                            <div className="space-y-2">
+                                <label className="block text-sm md:text-md font-bold text-black-text-base mb-2">
+                                    Added By (Name)
+                                </label>
+                                <input
+                                    className="w-full text-sm md:text-base px-3 md:px-4 py-2 md:py-3 border border-input-stroke rounded-lg bg-input-background text-black-text-base placeholder-black-text-light cursor-not-allowed"
+                                    type="text"
+                                    value={user?.displayName || "Unknown User"}
+                                    disabled
+                                    readOnly
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="block text-sm md:text-md font-bold text-black-text-base mb-2">
+                                    Added By (Email)
+                                </label>
+                                <input
+                                    className="w-full text-sm md:text-base px-3 md:px-4 py-2 md:py-3 border border-input-stroke rounded-lg bg-input-background text-black-text-base placeholder-black-text-light cursor-not-allowed"
+                                    type="email"
+                                    value={user?.email || "No email"}
+                                    disabled
+                                    readOnly
+                                />
+                            </div>
                         </div>
 
                         {/* Submit Button */}

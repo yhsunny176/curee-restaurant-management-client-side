@@ -21,6 +21,8 @@
   --color-red-base: var(--red-prim);
   --color-red-dark: var(--red-drk);
   --color-black-primary: var(--blk-prim);
+  --color-green-primary: var(--bg-green);
+  --color-green-dark: var(--green-hov);
 
   --color-input-background: var(--input-bg);
   --color-input-stroke: var(--input-stk);
@@ -35,6 +37,10 @@
   --color-card-sec-subtext: var(--card-sec-sub);
   --color-card-tablet: var(--card-tab);
   --color-card-tablet-stroke: var(--card-tab-stk);
+  --color-white-to-red: var(--white-d-red);
+  --color-red-to-gray: var(--red-d-gray);
+  --color-red-to-white: var(--red-d-wht);
+
 
   --color-red-text-base: var(--red-txt-prim);
   --color-black-text-light: var(--blk-txt-lt);
@@ -92,6 +98,11 @@ h5 {
   --red-txt-prim: oklch(0.6119 0.2342 29.52);
   --text-head: oklch(0.474 0.1854 29.53);
   --text-sub: oklch(0.5024 0.0038 17.28);
+  --white-d-red: oklch(0.9948 0.0011 17.18);
+  --red-d-gray: oklch(0.6119 0.2342 29.52);
+  --red-d-wht: oklch(0.6119 0.2342 29.52);
+  --bg-green: oklch(0.5908 0.1563 128.85);
+  --green-hov: oklch(0.4243 0.11 128.95);
 
   --blk-txt-lt: oklch(0.5024 0.0038 17.28);
   --blk-txt-base: oklch(0.2232 0.0016 17.27);
@@ -131,8 +142,11 @@ h5 {
 
   --text-head: oklch(0.474 0.1854 29.53);
   --text-sub: oklch(0.9948 0.0011 17.18);
+  --white-d-red: oklch(0.6119 0.2342 29.52);
+  --red-d-gray: oklch(0.3168 0.0309 274.23);
+  --red-d-wht: oklch(0.9948 0.0011 17.18); 
 
-  --blk-txt-lt: oklch(0.6012 0.0449 274.35);
+  --blk-txt-lt: oklch(76.823% 0.01442 276.968);
   --blk-txt-base: oklch(0.9948 0.0011 17.18);
   --blk-txt-drk: oklch(0.6119 0.2342 29.52);
   --bg-txt: oklch(0.2068 0.0182 274.94);
@@ -152,4 +166,18 @@ h5 {
   --gray-txt-prim: oklch(0.9948 0.0011 17.18);
   --brdr-gray-prim: oklch(0.4801 0.0079 286.1);
 
+}
+
+
+/* Sweet alert */
+.swal-confirm-btn {
+  @apply bg-green-primary text-white-base font-bold px-6 py-2 rounded hover:bg-green-dark transition-colors duration-500 ease-in-out;
+}
+
+.swal-cancel-btn {
+  @apply bg-white-base font-bold px-6 py-2 rounded border border-red-base text-red-base hover:text-white-base hover:bg-red-dark transition-colors duration-500 ease-in-out;
+}
+
+.swal-popup-custom {
+  @apply bg-card-background border-2 border-card-stroke rounded-xl text-red-to-white;
 }

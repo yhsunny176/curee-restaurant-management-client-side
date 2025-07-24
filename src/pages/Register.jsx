@@ -66,8 +66,7 @@ const Register = () => {
                 state: { message: "Congrats! Registration with Google Successful!", type: "success" },
             });
         } catch (error) {
-            toast.error("Google sign-up failed! Please try again.");
-            console.error("Google sign-up error:", error);
+            toast.error("Google sign-up failed! Please try again.", error);
         }
     };
 
@@ -78,8 +77,7 @@ const Register = () => {
                 <Navbar />
             </header>
 
-            <div className="flex-shrink-0">
-            </div>
+            <div className="flex-shrink-0"></div>
 
             {/* Responsive Layout */}
             <div className="flex-grow h-[calc(100vh-60px)] overflow-hidden">

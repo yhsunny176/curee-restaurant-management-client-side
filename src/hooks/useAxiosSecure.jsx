@@ -40,7 +40,7 @@ const useAxiosSecure = () => {
                     token = newToken;
                 }
             } catch (error) {
-                console.error("Failed to refresh token:", error);
+                toast.error("Failed to refresh token:", error);
             }
         }
 
@@ -126,9 +126,17 @@ const useAxiosSecure = () => {
         return response.data;
     };
 
+    // PATCH request
+    const patch = async (url, data) => {
+        const headers = await createAuthHeaders();
+        const response = await axiosSecure.patch(url, data, { headers });
+        return response.data;
+    };
+
     return {
         get,
         post,
+        patch,
         axiosSecure,
     };
 };

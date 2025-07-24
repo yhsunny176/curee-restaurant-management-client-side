@@ -15,7 +15,7 @@ const MainLayout = () => {
                         <div className="absolute top-0 left-0 right-0 z-50">
                             <Navbar />
                         </div>
-                        <main>
+                        <main className="bg-background-primary">
                             <Outlet />
                         </main>
                     </div>
@@ -26,7 +26,7 @@ const MainLayout = () => {
                     <div className="sticky top-0 z-50 bg-background-primary border-b border-gray-border-primary shadow-sm">
                         <Navbar />
                     </div>
-                    <main>
+                    <main className="bg-background-primary">
                         <Outlet />
                     </main>
                     <Footer />

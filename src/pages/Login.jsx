@@ -51,8 +51,7 @@ const Login = () => {
                 navigate(from);
             });
         } catch (error) {
-            toast.error("Google sign-in failed! Please try again.");
-            console.error("Google sign-in error:", error);
+            toast.error(error,"Google sign-in failed! Please try again!");
         }
     };
 

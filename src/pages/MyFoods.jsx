@@ -19,13 +19,11 @@ const MyFoods = () => {
                 try {
                     setLoading(true);
                     const result = await get(`/my-foods/${user?.email}`);
-                    console.log(result)
-
                     if (result && result.success) {
                         setMyFoods(result.data);
                     }
                 } catch (err) {
-                    console.error("Failed to fetch foods:", err);
+                    toast.error("Failed to fetch foods:", err);
                     // Show user-friendly error message
                     if (err.response?.status === 401) {
                         toast.error("Authentication required. Please log in again.");

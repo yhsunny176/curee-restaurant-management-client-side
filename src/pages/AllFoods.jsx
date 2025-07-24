@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Loader from "../components/Loader";
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router";
-import axiosInstance from "@/hooks/useAxios";
+import useAxios from "@/hooks/useAxios";
 
 const AllFoods = () => {
     const [allFoods, setAllFoods] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [search, setSearch] = useState("");
+    const inputRef = useRef(null);
+    const axiosInstance = useAxios();
 
+    // Fetch all foods once
     useEffect(() => {
         const fetchAllFoods = async () => {
             try {
@@ -19,21 +23,45 @@ const AllFoods = () => {
                 toast.error("Failed to fetch foods:", err);
             } finally {
                 setLoading(false);
+                if (inputRef.current) {
+                    inputRef.current.focus();
+                }
             }
         };
-
         fetchAllFoods();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [axiosInstance]);
+
+    // Keep input focused
+    useEffect(() => {
+        if (inputRef.current) {
+            inputRef.current.focus();
+        }
+    });
+
+    // Search
+    const filteredFoods = allFoods.filter((food) => {
+        const searchTerm = search.toLowerCase();
+        if (searchTerm === "") return true;
+        return (
+            food.foodName?.toLowerCase().includes(searchTerm) ||
+            food.foodCategory?.toLowerCase().includes(searchTerm) ||
+            food.foodOrigin?.toLowerCase().includes(searchTerm) ||
+            food.description?.toLowerCase().includes(searchTerm)
+        );
+    });
 
     if (loading) {
-        return <Loader />;
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-background-primary">
+                <Loader />
+            </div>
+        );
     }
 
     return (
         <div className="min-h-screen bg-background-primary py-6 md:py-8 lg:py-12 relative overflow-hidden">
             {/* Background Title Effect */}
-            {allFoods.length > 0 && (
+            {filteredFoods.length > 0 && (
                 <div className="absolute top-0 left-0 right-0 flex justify-center pointer-events-none">
                     <h1 className="text-[6rem] md:text-[10rem] lg:text-[15rem] xl:text-[18rem] font-bold text-bg-text select-none whitespace-nowrap">
                         ALL FOODS
@@ -52,8 +80,20 @@ const AllFoods = () => {
                     </p>
                 </div>
 
+                {/* Search Bar */}
+                <div className="flex justify-center mb-8">
+                    <input
+                        ref={inputRef}
+                        type="text"
+                        placeholder="Search foods by name..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        className="w-full max-w-full px-4 py-2 bg-input-background border border-input-stroke rounded-md focus:outline-none focus:ring focus:ring-red-base placeholder-card-subtext text-white-base"
+                    />
+                </div>
+
                 {/* Foods Display */}
-                {allFoods.length === 0 ? (
+                {filteredFoods.length === 0 ? (
                     <div className="text-center py-8 md:py-12">
                         <div className="mb-4">
                             <svg
@@ -77,7 +117,7 @@ const AllFoods = () => {
                 ) : (
                     <>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                            {allFoods.map((food) => (
+                            {filteredFoods.map((food) => (
                                 <div
                                     key={food._id}
                                     className="bg-card-background rounded-lg overflow-hidden hover:shadow-card-shadow transition-shadow duration-300 border border-card-stroke flex flex-col h-full cursor-pointer">
@@ -120,9 +160,11 @@ const AllFoods = () => {
                                                 </div>
                                             </div>
 
-                                            <button
+                                            <Link
+                                                to={`/food-detail/${food._id}`}
                                                 className="w-full inline-flex items-center justify-center px-3 md:px-4 py-2 md:py-3 text-xs md:text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-md transition-colors duration-300 cursor-pointer"
-                                                title="View food details">
+                                                title="View food details"
+                                                style={{ textDecoration: "none" }}>
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     className="w-4 h-4 md:w-5 md:h-5 mr-1 md:mr-2"
@@ -142,8 +184,8 @@ const AllFoods = () => {
                                                         strokeWidth="2"
                                                     />
                                                 </svg>
-                                                <Link to="/food-detail/">View Details</Link>
-                                            </button>
+                                                <span>View Details</span>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>
