@@ -182,17 +182,6 @@ const PurchaseFood = () => {
                     {isOwnItem ? "You can't purchase your own item" : "Order Item"}
                 </button>
             </form>
-            {/* ToastContainer for toast notifications */}
-            <ToastContainer
-                position="top-center"
-                autoClose={2000}
-                hideProgressBar={false}
-                newestOnTop
-                closeOnClick
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-            />
         </div>
     );
 };

@@ -16,12 +16,6 @@ const Login = () => {
     const from = location.state?.from?.pathname || "/";
 
     useEffect(() => {
-        if (message) {
-            if (type === "success") {
-                toast.success(message);
-            }
-        }
-
         window.history.replaceState({}, document.title);
     }, [message, type]);
 
@@ -51,7 +45,7 @@ const Login = () => {
                 navigate(from);
             });
         } catch (error) {
-            toast.error(error,"Google sign-in failed! Please try again!");
+            toast.error(error, "Google sign-in failed! Please try again!");
         }
     };
 
@@ -62,8 +56,7 @@ const Login = () => {
                 <Navbar />
             </header>
 
-            <div>
-            </div>
+            <div></div>
 
             {/* Responsive Layout */}
             <div className="flex-1">

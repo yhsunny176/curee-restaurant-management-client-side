@@ -81,11 +81,14 @@ const AddFood = () => {
                     showCancelButton: true,
                     confirmButtonColor: "#dc2626",
                     cancelButtonColor: "#6b7280",
+                    customClass: {
+                        popup: "swal-popup-custom",
+                    },
                     confirmButtonText: "See My Foods",
                     cancelButtonText: "Add Another Food",
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        navigate("/my-foods");
+                        navigate("/all-foods");
                     }
                 });
             }
