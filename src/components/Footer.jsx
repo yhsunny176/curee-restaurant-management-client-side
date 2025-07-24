@@ -9,7 +9,7 @@ const Footer = () => {
     const isHome = location.pathname === "/";
 
     return (
-        <div className="w-full px-4 py-8">
+        <div className="w-full px-4 py-12 xl:py-16">
             <div className="max-w-11/12 lg:max-w-10/12 xl:max-w-9/12 2xl:max-w-8/12 mx-auto">
                 <div className="flex flex-col items-center gap-4 lg:flex-row lg:items-start lg:justify-between lg:gap-0">
                     {/* Logo Section */}

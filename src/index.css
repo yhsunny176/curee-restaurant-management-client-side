@@ -16,6 +16,7 @@
 
   /* Colors */
   --color-background-primary: var(--bg-prim);
+  --color-background-secondary: var(--bg-sec);
   --color-background-form: var(--bg-form);
 
   --color-red-base: var(--red-prim);
@@ -91,6 +92,7 @@ h5 {
 
 :root {
   --bg-prim: oklch(0.9948 0.0011 17.18);
+  --bg-sec: oklch(0.9757 0.0017 247.84);
   --bg-form: oklch(0.9948 0.0011 17.18);
   --red-prim: oklch(0.5309 0.2096 29.6);
   --red-drk: oklch(0.474 0.1854 29.53);
@@ -140,6 +142,7 @@ h5 {
 
 .dark {
   --bg-prim: oklch(0.1645 0.0131 270.5);
+  --bg-sec: oklch(0.1875 0.017 268.71);
   --bg-form: oklch(0.2162 0.0241 273.38);
 
   --text-head: oklch(0.474 0.1854 29.53);

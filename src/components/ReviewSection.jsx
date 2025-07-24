@@ -6,12 +6,12 @@ import { AiFillStar } from "react-icons/ai";
 
 const ReviewSection = () => {
     return (
-        <div className="w-full py-12 bg-background-primary border-t border-card-stroke">
+        <div className="w-full py-12">
             <h2 className="text-4xl font-bold text-center text-red-base mb-2">Customer Reviews</h2>
             <p className="text-center text-lg text-gray-text-base 0 mb-6">
                 Hear what our happy customers have to say about their experience!
             </p>
-            <div className="w-full max-w-11/12 lg:max-w-10/12 xl:max-w-9/12 mx-auto">
+            <div className="w-full max-w-11/12 lg:max-w-10/12 xl:max-w-8/12 mx-auto">
                 <Marquee pauseOnHover gradient={false} speed={40}>
                     <div className="py-6 flex">
                         {reviews.map((review) => (

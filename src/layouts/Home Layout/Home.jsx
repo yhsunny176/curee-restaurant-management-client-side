@@ -4,6 +4,7 @@ import TopFoodItems from "../../components/TopFoodItems";
 import { useLocation } from "react-router";
 import { toast } from "react-toastify";
 import ReviewSection from "@/components/ReviewSection";
+import ContactUs from "@/components/ContactUs";
 
 const Home = () => {
     const location = useLocation();
@@ -28,8 +29,12 @@ const Home = () => {
                 <TopFoodItems></TopFoodItems>
             </section>
 
-            <section className="bg-background-primary">
+            <section className="bg-background-secondary">
                 <ReviewSection />
+            </section>
+
+            <section className="bg-red-dark">
+                <ContactUs/>
             </section>
         </div>
     );
