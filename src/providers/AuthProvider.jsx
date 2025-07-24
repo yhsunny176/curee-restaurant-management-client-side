@@ -10,7 +10,7 @@ import {
     signOut,
     updateProfile,
 } from "firebase/auth";
-import { AuthContext } from "./AuthContext";
+import { AuthContext } from "../contexts/AuthContext";
 import { toast } from "react-toastify";
 
 const auth = getAuth(app);

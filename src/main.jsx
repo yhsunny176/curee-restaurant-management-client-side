@@ -3,20 +3,23 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import router from "./routes/Routes";
 import { RouterProvider } from "react-router";
-import AuthProvider from "./contexts/AuthProvider";
 import { ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ThemeProvider } from "./providers/ThemeProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import AuthProvider from "./providers/AuthProvider";
+import { ScrollProvider } from "./providers/ScrollProvider";
 
 const queryClient = new QueryClient();
 createRoot(document.getElementById("root")).render(
     <StrictMode>
         <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
             <QueryClientProvider client={queryClient}>
-                <AuthProvider>
-                    <RouterProvider router={router}></RouterProvider>
-                </AuthProvider>
+                <ScrollProvider>
+                    <AuthProvider>
+                        <RouterProvider router={router}></RouterProvider>
+                    </AuthProvider>
+                </ScrollProvider>
             </QueryClientProvider>
         </ThemeProvider>
         <ToastContainer

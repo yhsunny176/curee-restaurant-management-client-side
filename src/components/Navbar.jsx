@@ -5,6 +5,7 @@ import placeHolderAvatar from "../assets/profile.png";
 import ButtonLoader from "./ButtonLoader";
 import ThemeToggle from "./ThemeToggle";
 import { useTheme } from "@/hooks/useTheme";
+import useScroll from "@/hooks/useScroll";
 
 const Navbar = () => {
     const location = useLocation();
@@ -13,8 +14,8 @@ const Navbar = () => {
     const isRegister = location.pathname === "/auth/registration";
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const { theme } = useTheme();
-
     const navigate = useNavigate();
+    const { scrollTo } = useScroll();
 
     const { user, logOut, loading } = useContext(AuthContext);
 
@@ -44,6 +45,15 @@ const Navbar = () => {
                     state: { message: `${error.message}`, type: "error" },
                 });
             });
+    };
+
+    const handleScroll = (section) => {
+        if (location.pathname !== "/") {
+            navigate("/");
+            setTimeout(() => scrollTo(section), 100);
+        } else {
+            scrollTo(section);
+        }
     };
 
     return (
@@ -131,7 +141,7 @@ const Navbar = () => {
                                         Gallery
                                     </NavLink>
                                     <NavLink
-                                        to=""
+                                        onClick={() => handleScroll("reviews")}
                                         className={`hover:text-red-base transition-colors text-sm lg:text-base xl:text-lg duration-300 ease-in-out whitespace-nowrap ${
                                             isHome
                                                 ? "text-white-text-primary hover:text-gold-text"
@@ -140,7 +150,7 @@ const Navbar = () => {
                                         Reviews
                                     </NavLink>
                                     <NavLink
-                                        to=""
+                                        onClick={() => handleScroll("contact")}
                                         className={`hover:text-red-base transition-colors text-sm lg:text-base xl:text-lg duration-300 ease-in-out whitespace-nowrap ${
                                             isHome
                                                 ? "text-white-text-primary hover:text-gold-text"
@@ -166,9 +176,11 @@ const Navbar = () => {
                                                 alt="User avatar"
                                                 src={user?.photoURL || placeHolderAvatar}
                                                 className="w-full h-full object-cover"
-                                                onError={e => { e.target.onerror = null; e.target.src = placeHolderAvatar; }}
+                                                onError={(e) => {
+                                                    e.target.onerror = null;
+                                                    e.target.src = placeHolderAvatar;
+                                                }}
                                             />
-
                                         </div>
 
                                         {/* Dropdown Menu */}
@@ -281,12 +293,20 @@ const Navbar = () => {
                             Gallery
                         </NavLink>
                         <NavLink
-                            to=""
+                            onClick={() => {
+                                const drawer = document.getElementById("my-drawer-3");
+                                if (drawer) drawer.checked = false;
+                                setTimeout(() => handleScroll("reviews"), 100);
+                            }}
                             className={`hover:text-gold-text focus:text-gold-text active:text-gold-text transition-colors text-lg text-card-main-text duration-300 ease-in-out`}>
                             Reviews
                         </NavLink>
                         <NavLink
-                            to=""
+                            onClick={() => {
+                                const drawer = document.getElementById("my-drawer-3");
+                                if (drawer) drawer.checked = false;
+                                setTimeout(() => handleScroll("contact"), 100);
+                            }}
                             className={`hover:text-gold-text active:text-gold-text transition-colors text-lg text-card-main-text duration-300 ease-in-out`}>
                             Contact Us
                         </NavLink>

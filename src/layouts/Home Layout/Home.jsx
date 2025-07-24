@@ -5,10 +5,13 @@ import { useLocation } from "react-router";
 import { toast } from "react-toastify";
 import ReviewSection from "@/components/ReviewSection";
 import ContactUs from "@/components/ContactUs";
+import useScroll from "@/hooks/useScroll";
 
 const Home = () => {
     const location = useLocation();
     const { message, type } = location.state || {};
+    const { reviewsRef } = useScroll();
+    const { contactRef } = useScroll();
 
     useEffect(() => {
         if (message) {
@@ -29,12 +32,12 @@ const Home = () => {
                 <TopFoodItems></TopFoodItems>
             </section>
 
-            <section className="bg-background-secondary">
+            <section id="reviews" ref={reviewsRef} className="bg-background-secondary">
                 <ReviewSection />
             </section>
 
-            <section className="bg-red-dark">
-                <ContactUs/>
+            <section id="contact" ref={contactRef} className="bg-red-dark">
+                <ContactUs />
             </section>
         </div>
     );

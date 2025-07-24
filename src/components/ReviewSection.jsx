@@ -1,7 +1,6 @@
 import React from "react";
 import Marquee from "react-fast-marquee";
 import reviews from "./Reviews";
-import { Star } from "lucide-react";
 import { AiFillStar } from "react-icons/ai";
 
 const ReviewSection = () => {
