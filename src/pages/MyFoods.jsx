@@ -4,7 +4,9 @@ import { AuthContext } from "../contexts/AuthContext";
 import Loader from "../components/Loader";
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import useAxiosSecure from "../hooks/useAxiosSecure";
+
+import UpdateModal from "../components/UpdateModal";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
 
 
 const MyFoods = () => {
@@ -12,6 +14,8 @@ const MyFoods = () => {
     const { get } = useAxiosSecure();
     const [myFoods, setMyFoods] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [showUpdateModal, setShowUpdateModal] = useState(false);
+    const [selectedFoodId, setSelectedFoodId] = useState(null);
 
     useEffect(() => {
         if (!authLoading && user?.email) {
@@ -40,6 +44,7 @@ const MyFoods = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user?.email, authLoading]);
+
 
     if (authLoading || loading) {
         return <Loader />;
@@ -131,7 +136,12 @@ const MyFoods = () => {
                                             <div className="flex justify-between items-center">
                                                 <button
                                                     className="inline-flex items-center px-3 md:px-4 py-2 md:py-3 text-xs md:text-sm font-medium text-white bg-red-base hover:bg-red-700 rounded-md transition-colors duration-300 cursor-pointer"
-                                                    title="Update food item">
+                                                    title="Update food item"
+                                                    onClick={() => {
+                                                        setSelectedFoodId(food._id);
+                                                        setShowUpdateModal(true);
+                                                    }}
+                                                >
                                                     <svg
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         className="w-4 h-4 md:w-5 md:h-5 mr-1 md:mr-2"
@@ -173,6 +183,30 @@ const MyFoods = () => {
                                 </div>
                             ))}
                         </div>
+                        {/* Update Modal */}
+                        {showUpdateModal && selectedFoodId && (
+                            <UpdateModal
+                                foodId={selectedFoodId}
+                                onClose={() => {
+                                    setShowUpdateModal(false);
+                                    setSelectedFoodId(null);
+                                }}
+                                onUpdated={() => {
+                                    // Refresh foods after update
+                                    setShowUpdateModal(false);
+                                    setSelectedFoodId(null);
+                                    // Re-fetch foods
+                                    if (user?.email) {
+                                        setLoading(true);
+                                        get(`/my-foods/${user?.email}`).then(result => {
+                                            if (result && result.success) {
+                                                setMyFoods(result.data);
+                                            }
+                                        }).finally(() => setLoading(false));
+                                    }
+                                }}
+                            />
+                        )}
                     </>
                 )}
             </div>
