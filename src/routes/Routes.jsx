@@ -12,6 +12,7 @@ import AllFoods from "../pages/AllFoods";
 import Gallery from "../pages/Gallery";
 import SingleFood from "@/pages/SingleFood";
 import PurchaseFood from "@/pages/PurchaseFood";
+import MyOrders from "@/pages/MyOrders";
 
 const router = createBrowserRouter([
     {
@@ -55,6 +56,14 @@ const router = createBrowserRouter([
                 element: (
                     <PrivateRoute>
                         <PurchaseFood />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: "/my-orders/:email",
+                element: (
+                    <PrivateRoute>
+                        <MyOrders />
                     </PrivateRoute>
                 ),
             },

@@ -82,7 +82,7 @@ const PurchaseFood = () => {
             // Update purchaseCount and quantity
             await orderUpdate.mutateAsync({ foodId: food._id, purchaseAmount: quantity });
 
-            //Create order
+            // Create order
             const orderData = {
                 foodId: food._id,
                 foodName: food.foodName,
@@ -91,6 +91,10 @@ const PurchaseFood = () => {
                 buyerName: user?.displayName,
                 buyerEmail: user?.email,
                 buyingDate: new Date(Date.now()).toLocaleString(),
+                foodOwner: {
+                    ownerName: food.addedBy.name,
+                    ownerEmail: food.addedBy.email
+                }
             };
             await post("/orders", orderData);
             toast.success("Order placed successfully!");

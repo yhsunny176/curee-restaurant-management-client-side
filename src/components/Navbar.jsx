@@ -186,6 +186,12 @@ const Navbar = () => {
                                                     onClick={() => setIsDropdownOpen(false)}>
                                                     My Foods
                                                 </Link>
+                                                <Link
+                                                    to={`/my-orders/${user?.email}`}
+                                                    className="block px-4 py-2 text-black-text-base hover:bg-gray-50 hover:text-red-base transition-colors duration-200"
+                                                    onClick={() => setIsDropdownOpen(false)}>
+                                                    My Orders
+                                                </Link>
                                                 <div className="border-t border-gray-border-primary my-1"></div>
                                                 <div className="px-4 py-2">
                                                     <p className="text-xs text-black-text-light font-medium">
