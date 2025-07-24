@@ -19,7 +19,9 @@ const MainLayout = () => {
                             <Outlet />
                         </main>
                     </div>
-                    <Footer />
+                    <footer className="bg-background-primary border-t border-card-stroke">
+                        <Footer />
+                    </footer>
                 </>
             ) : (
                 <>
@@ -29,7 +31,9 @@ const MainLayout = () => {
                     <main className="bg-background-primary">
                         <Outlet />
                     </main>
-                    <Footer />
+                    <footer className="bg-background-primary border-t border-card-stroke">
+                        <Footer />
+                    </footer>
                 </>
             )}
         </div>

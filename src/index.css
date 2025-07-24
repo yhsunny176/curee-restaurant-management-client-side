@@ -23,6 +23,7 @@
   --color-black-primary: var(--blk-prim);
   --color-green-primary: var(--bg-green);
   --color-green-dark: var(--green-hov);
+  --color-background-footer: var(--footer-bg);
 
   --color-input-background: var(--input-bg);
   --color-input-stroke: var(--input-stk);
@@ -94,6 +95,7 @@ h5 {
   --red-prim: oklch(0.5309 0.2096 29.6);
   --red-drk: oklch(0.474 0.1854 29.53);
   --blk-prim: oklch(0.1969 0.0016 17.29);
+  --footer-bg: oklch(0.1645 0.0131 270.5);
 
   --red-txt-prim: oklch(0.6119 0.2342 29.52);
   --text-head: oklch(0.474 0.1854 29.53);

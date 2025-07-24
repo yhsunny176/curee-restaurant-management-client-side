@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import moment from "moment";
 import { useOrderDelete } from "@/hooks/useOrderDelete";
+import { Sandwich } from "lucide-react";
 
 const MyOrders = () => {
     const { user, loading: authLoading } = useContext(AuthContext);
@@ -56,7 +57,6 @@ const MyOrders = () => {
                     }
                 } catch (err) {
                     toast.error("Failed to fetch Orders", err);
-                    // Show user-friendly error message
                     if (err.response?.status === 401) {
                         toast.error("Authentication required. Please log in again.");
                     } else if (err.response?.status === 403) {
@@ -93,7 +93,7 @@ const MyOrders = () => {
                 {/* Orders Table Display */}
                 {myOrders.length === 0 ? (
                     <div className="text-center py-8 md:py-12">
-                        <div className="mb-4 bg-card-background max-w-max mx-auto p-6 rounded-lg"></div>
+                        <div className="mb-4 bg-card-background max-w-max mx-auto p-6 rounded-lg"><Sandwich className="text-black-text-dark size-12"/></div>
                         <h3 className="text-2xl md:text-3xl font-medium text-black-text-base mb-2">No Orders found</h3>
                         <p className="text-black-text-light mb-4 md:mb-6 text-md lg:text-lg xl:text-xl">
                             You have not Ordered any food yet.
