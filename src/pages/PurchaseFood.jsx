@@ -97,6 +97,7 @@ const PurchaseFood = () => {
                 }
             };
             await post("/orders", orderData);
+            Swal.close();
             toast.success("Order placed successfully!");
         } catch (error) {
             const msg = error?.response?.data?.message || "Failed to place order";

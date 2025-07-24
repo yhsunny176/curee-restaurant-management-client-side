@@ -133,10 +133,18 @@ const useAxiosSecure = () => {
         return response.data;
     };
 
+    // DELETE request
+    const del = async (url) => {
+        const headers = await createAuthHeaders();
+        const response = await axiosSecure.delete(url, { headers });
+        return response.data;
+    };
+
     return {
         get,
         post,
         patch,
+        del,
         axiosSecure,
     };
 };

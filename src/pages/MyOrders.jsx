@@ -5,39 +5,44 @@ import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import moment from "moment";
+import { useOrderDelete } from "@/hooks/useOrderDelete";
 
 const MyOrders = () => {
     const { user, loading: authLoading } = useContext(AuthContext);
-    const { get, del } = useAxiosSecure();
+    const { get } = useAxiosSecure();
     const [myOrders, setMyOrders] = useState([]);
     const [loading, setLoading] = useState(false);
-    // Remove update modal state
-    // Delete order handler
+    const orderDelete = useOrderDelete();
+
+    // Delete order handler using Tanstack Mutation
     const handleDelete = async (orderId) => {
         const result = await Swal.fire({
             title: "Are you sure?",
             text: "Do you want to delete this order? This action cannot be undone.",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#d33",
-            cancelButtonColor: "#3085d6",
+            customClass: {
+                confirmButton: "swal-confirm-btn",
+                cancelButton: "swal-cancel-btn",
+                popup: "swal-popup-custom",
+            },
             confirmButtonText: "Yes, delete it!",
         });
         if (!result.isConfirmed) return;
-        try {
-            setLoading(true);
-            const res = await del(`/orders/${orderId}`);
-            if (res && res.success) {
-                setMyOrders((prev) => prev.filter((order) => order._id !== orderId));
-                toast.success("Order deleted successfully!");
-            } else {
-                toast.error("Failed to delete order.");
-            }
-        } catch (err) {
-            toast.error("Failed to delete order.", err);
-        } finally {
-            setLoading(false);
-        }
+        orderDelete.mutate(orderId, {
+            onSuccess: (res) => {
+                if (res && res.success) {
+                    setMyOrders((prev) => prev.filter((order) => order._id !== orderId));
+                    Swal.close();
+                    toast.success("Order deleted!");
+                } else {
+                    toast.error("Failed to delete order.");
+                }
+            },
+            onError: (err) => {
+                toast.error("Failed to delete order.", err);
+            },
+        });
     };
 
     useEffect(() => {
