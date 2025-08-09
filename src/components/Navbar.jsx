@@ -76,10 +76,10 @@ const Navbar = () => {
                     isHome && !isScrolled
                         ? "bg-transparent"
                         : isHome && isScrolled
-                        ? "bg-background-primary/95 backdrop-filter backdrop-blur-2xl shadow-sm"
+                        ? "bg-background-primary backdrop-filter backdrop-blur-2xl shadow-sm"
                         : !isHome && !isScrolled
-                        ? "bg-background-primary/95 backdrop-filter backdrop-blur-2xl"
-                        : "bg-background-primary/95 backdrop-filter backdrop-blur-2xl shadow-sm"
+                        ? "bg-background-primary backdrop-filter backdrop-blur-2xl"
+                        : "bg-background-primary backdrop-filter backdrop-blur-2xl shadow-sm"
                 } ${(!isHome && !isScrolled) || isScrolled ? "border-b border-gray-border-primary" : ""}`}>
                 <div className="drawer">
                     <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
@@ -88,7 +88,7 @@ const Navbar = () => {
                         <div
                             className={`navbar w-full justify-between ${
                                 isLogin || isRegister ? "lg:max-w-11/12 lg:mx-auto" : "lg:max-w-7xl lg:mx-auto"
-                            } ${isScrolled ? "lg:py-4" : "lg:py-8"} px-3 sm:px-4 lg:px-6 xl:px-8`}>
+                            } ${isScrolled ? "lg:py-4" : "lg:py-8"}`}>
                             <div className="flex-none lg:hidden">
                                 <label
                                     htmlFor="my-drawer-3"

@@ -59,10 +59,10 @@ const TopFoodItems = () => {
                 </div>
 
                 {/* Images / Right side */}
-                <div className="w-full mx-auto lg:max-w-6/12 flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6 lg:h-[464px]">
-                    <div className="w-full md:w-1/2 flex flex-1 items-start">
+                <div className="w-full mx-auto lg:max-w-6/12 flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-6 lg:h-[464px]">
+                    <div className="w-full lg:w-1/2 lg:flex lg:flex-1 lg:items-start">
                         <FadeInFromLeft>
-                            <div className="w-full h-56 md:h-80 lg:h-96 border border-card-stroke rounded-md overflow-hidden">
+                            <div className="w-full h-72 lg:h-96 border border-card-stroke rounded-md overflow-hidden">
                                 <img
                                     src={cardImg8}
                                     alt="Section image containing chicken roll dish"
@@ -71,9 +71,9 @@ const TopFoodItems = () => {
                             </div>
                         </FadeInFromLeft>
                     </div>
-                    <div className="w-full md:w-1/2 flex flex-1 items-end mt-6 md:mt-0">
+                    <div className="w-full lg:w-1/2 lg:flex lg:flex-1 lg:items-end">
                         <FadeInFromLeft delay={0.2}>
-                            <div className="w-full h-40 md:h-48 lg:h-56 border border-card-stroke rounded-md overflow-hidden">
+                            <div className="w-full h-72 md:h-56 lg:h-56 border border-card-stroke rounded-md overflow-hidden">
                                 <img
                                     src={cardImg9}
                                     alt="Section image containing chicken roll dish"
