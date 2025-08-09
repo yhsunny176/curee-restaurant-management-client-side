@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet, useLocation } from "react-router";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
+import ScrollContainer from "../../components/ScrollContainer";
 
 const MainLayout = () => {
     const location = useLocation();
@@ -9,29 +10,28 @@ const MainLayout = () => {
 
     return (
         <div>
-            {isHomePage ? (
-                <>
-                    <div className="relative">
-                        <Navbar />
+            <Navbar />
+            <ScrollContainer>
+                {isHomePage ? (
+                    <>
                         <main className="bg-background-primary">
                             <Outlet />
                         </main>
-                    </div>
-                    <footer className="bg-background-primary border-t border-card-stroke">
-                        <Footer />
-                    </footer>
-                </>
-            ) : (
-                <>
-                    <Navbar />
-                    <main className="bg-background-primary">
-                        <Outlet />
-                    </main>
-                    <footer className="bg-background-primary border-t border-card-stroke">
-                        <Footer />
-                    </footer>
-                </>
-            )}
+                        <footer className="bg-background-primary border-t border-card-stroke">
+                            <Footer />
+                        </footer>
+                    </>
+                ) : (
+                    <>
+                        <main className="bg-background-primary">
+                            <Outlet />
+                        </main>
+                        <footer className="bg-background-primary border-t border-card-stroke">
+                            <Footer />
+                        </footer>
+                    </>
+                )}
+            </ScrollContainer>
         </div>
     );
 };

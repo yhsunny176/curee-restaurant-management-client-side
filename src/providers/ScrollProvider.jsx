@@ -11,7 +11,12 @@ export const ScrollProvider = ({ children }) => {
             reviews: reviewsRef,
         };
 
-        refs[section]?.current?.scrollIntoView({ behavior: "smooth" });
+        const element = refs[section]?.current;
+        if (element) {
+            // Calculate the element's position and scroll the window
+            const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
+            window.scrollTo({ top: elementTop - 80, behavior: "smooth" }); // 80px offset for navbar
+        }
     };
 
     return <ScrollContext.Provider value={{ contactRef, reviewsRef, scrollTo }}>{children}</ScrollContext.Provider>;

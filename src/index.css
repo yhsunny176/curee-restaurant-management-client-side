@@ -190,3 +190,11 @@ h5 {
 .swal-popup-custom {
   @apply bg-card-background border-2 border-card-stroke rounded-xl text-red-to-white;
 }
+
+/* Scroll container */
+.scroll-container {
+  position: fixed;
+  left: 0;
+  right: 0;
+  will-change: transform;
+}
