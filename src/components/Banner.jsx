@@ -15,6 +15,7 @@ import "../css/swiper.css";
 // import required modules
 import { Autoplay, Keyboard, EffectFade, Pagination } from "swiper/modules";
 import { useNavigate } from "react-router";
+import { FadeInText } from "./ScrollAnimations";
 
 const Banner = () => {
     const navigate = useNavigate();
@@ -47,21 +48,28 @@ const Banner = () => {
                         <div className="absolute inset-0 bg-overlay-dark z-10"></div>
                         <div className="w-11/12 sm:w-10/12 md:w-9/12 lg:w-8/12 xl:w-7/12 2xl:w-6/12 h-auto mx-auto absolute inset-0 flex items-center justify-center z-20 px-3 sm:px-4 md:px-6 lg:px-8">
                             <div className="flex flex-col space-y-3 sm:space-y-4 md:space-y-5 lg:space-y-6 text-center max-w-full mt-16">
-                                <h1 className="text-white-text-primary leading-tight text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-normal break-words">
-                                    Handcrafted <span className="text-gold-text">Culinary</span> Art, Designed to
-                                    Delight the Senses.
-                                </h1>
-                                <p className="text-white-text-secondary leading-relaxed text-sm sm:text-base md:text-lg lg:text-xl xl:text-xl font-light break-words">
-                                    Step into a world of refined flavors, where each dish tells a story and every bite
-                                    is an unforgettable experience.
-                                </p>
+                                <FadeInText>
+                                    <h1 className="text-white-text-primary leading-tight text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-normal break-words">
+                                        Handcrafted <span className="text-gold-text">Culinary</span> Art, Designed to
+                                        Delight the Senses.
+                                    </h1>
+                                </FadeInText>
 
-                                <button
-                                    type="button"
-                                    onClick={handleSeeAllDishes}
-                                    className="cursor-pointer mx-auto mt-3 sm:mt-4 md:mt-6 lg:mt-8 px-4 sm:px-6 md:px-8 lg:px-10 py-2.5 md:py-3 lg:py-3.5 text-sm sm:text-base md:text-lg lg:text-xl text-white-text-primary bg-red-base rounded-md hover:bg-red-dark transition-colors duration-600 ease-in-out whitespace-nowrap min-h-[44px] flex items-center justify-center">
-                                    See All Dishes
-                                </button>
+                                <FadeInText delay={0.2}>
+                                    <p className="text-white-text-secondary leading-relaxed text-sm sm:text-base md:text-lg lg:text-xl xl:text-xl font-light break-words">
+                                        Step into a world of refined flavors, where each dish tells a story and every
+                                        bite is an unforgettable experience.
+                                    </p>
+                                </FadeInText>
+
+                                <FadeInText delay={0.3}>
+                                    <button
+                                        type="button"
+                                        onClick={handleSeeAllDishes}
+                                        className="cursor-pointer mx-auto mt-3 sm:mt-4 md:mt-6 lg:mt-8 px-4 sm:px-6 md:px-8 lg:px-10 py-2.5 md:py-3 lg:py-3.5 text-sm sm:text-base md:text-lg lg:text-xl text-white-text-primary bg-red-base rounded-md hover:bg-red-dark transition-colors duration-600 ease-in-out whitespace-nowrap min-h-[44px] flex items-center justify-center">
+                                        See All Dishes
+                                    </button>
+                                </FadeInText>
                             </div>
                         </div>
                     </div>
@@ -80,6 +88,7 @@ const Banner = () => {
                                     Where <span className="text-gold-text">Flavor</span> Meets{" "}
                                     <span className="text-gold-text">Precision</span>, and Atmosphere Becomes Art.
                                 </h1>
+
                                 <p className="text-white-text-secondary leading-relaxed text-sm sm:text-base md:text-lg lg:text-xl xl:text-xl font-light break-words">
                                     Indulge in a carefully composed dining experience where every plate, scent, and
                                     sound is part of the story.

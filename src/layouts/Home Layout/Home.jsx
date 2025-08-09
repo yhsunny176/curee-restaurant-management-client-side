@@ -25,7 +25,7 @@ const Home = () => {
     return (
         <div>
             <section className="w-full h-[700px] lg:h-[900px]">
-                <Banner></Banner>
+                <Banner/>
             </section>
 
             <section className="bg-background-primary">
