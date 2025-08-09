@@ -173,6 +173,10 @@ h5 {
 
 }
 
+.navbar {
+  padding: 0;
+}
+
 
 /* Sweet alert */
 .swal-confirm-btn {

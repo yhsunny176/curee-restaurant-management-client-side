@@ -86,7 +86,7 @@ const Navbar = () => {
                     <div className="drawer-content flex flex-col">
                         {/* Navbar */}
                         <div
-                            className={`navbar w-full justify-between ${
+                            className={`navbar ==w-full justify-between ${
                                 isLogin || isRegister ? "lg:max-w-11/12 lg:mx-auto" : "lg:max-w-7xl lg:mx-auto"
                             } ${isScrolled ? "lg:py-4" : "lg:py-8"}`}>
                             <div className="flex-none lg:hidden">
