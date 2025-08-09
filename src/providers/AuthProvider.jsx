@@ -55,12 +55,20 @@ const AuthProvider = ({ children }) => {
 
     const createUser = (email, password) => {
         setLoading(true);
-        return createUserWithEmailAndPassword(auth, email, password);
+        return createUserWithEmailAndPassword(auth, email, password)
+            .catch((error) => {
+                setLoading(false);
+                throw error;
+            });
     };
 
     const signIn = (email, password) => {
         setLoading(true);
-        return signInWithEmailAndPassword(auth, email, password);
+        return signInWithEmailAndPassword(auth, email, password)
+            .catch((error) => {
+                setLoading(false);
+                throw error;
+            });
     };
 
     const signInWithGoogle = async () => {
