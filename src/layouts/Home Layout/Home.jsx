@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Banner from "../../components/Banner";
 import TopFoodItems from "../../components/TopFoodItems";
+import Heritage from "../../components/Heritage";
 import { useLocation } from "react-router";
 import { toast } from "react-toastify";
 import ReviewSection from "@/components/ReviewSection";
@@ -32,7 +33,11 @@ const Home = () => {
                 <TopFoodItems></TopFoodItems>
             </section>
 
-            <section id="reviews" ref={reviewsRef} className="bg-background-secondary">
+            <section className="bg-background-secondary">
+                <Heritage />
+            </section>
+
+            <section id="reviews" ref={reviewsRef} className="bg-background-primary">
                 <ReviewSection />
             </section>
 
