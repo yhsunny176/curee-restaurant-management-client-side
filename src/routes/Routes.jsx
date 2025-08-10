@@ -5,6 +5,7 @@ import Error from "../components/Error";
 import AuthLayout from "../layouts/Authentication/AuthLayout";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import ForgotPassword from "../pages/ForgotPassword";
 import PrivateRoute from "./PrivateRoute";
 import AddFood from "../pages/AddFood";
 import MyFoods from "../pages/MyFoods";
@@ -80,6 +81,10 @@ const router = createBrowserRouter([
             {
                 path: "registration",
                 element: <Register></Register>,
+            },
+            {
+                path: "forgot-password",
+                element: <ForgotPassword></ForgotPassword>,
             },
         ],
     },

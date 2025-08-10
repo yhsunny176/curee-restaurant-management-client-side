@@ -9,6 +9,7 @@ import {
     GoogleAuthProvider,
     signOut,
     updateProfile,
+    sendPasswordResetEmail,
 } from "firebase/auth";
 import { AuthContext } from "../contexts/AuthContext";
 import { toast } from "react-toastify";
@@ -94,6 +95,10 @@ const AuthProvider = ({ children }) => {
         return signOut(auth);
     };
 
+    const resetPassword = (email) => {
+        return sendPasswordResetEmail(auth, email);
+    };
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             if (currentUser) {
@@ -118,6 +123,7 @@ const AuthProvider = ({ children }) => {
         signInWithGoogle,
         updateUser,
         logOut,
+        resetPassword,
         storeJWTToken,
         getStoredToken,
         getStoredRefreshToken,

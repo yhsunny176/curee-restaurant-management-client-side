@@ -133,7 +133,10 @@ const Login = () => {
 
                                         <div className="flex items-center justify-between">
                                             <div className="text-md">
-                                                <Link className="text-black-text-base hover:text-red-base underline">
+                                                <Link 
+                                                    to="/auth/forgot-password"
+                                                    className="text-black-text-base hover:text-red-base underline transition ease-in duration-300"
+                                                >
                                                     Forgot password?
                                                 </Link>
                                             </div>
