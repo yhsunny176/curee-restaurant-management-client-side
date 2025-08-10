@@ -1,7 +1,57 @@
-import React from "react";
+import React, { useState } from "react";
 import { FadeInText } from "./ScrollAnimations";
+import { toast } from "react-toastify";
 
 const ContactUs = () => {
+    const [formData, setFormData] = useState({
+        userEmail: "",
+        phoneNumber: "",
+        message: "",
+    });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!formData.userEmail || !formData.message) {
+            toast.error("Please fill in all fields");
+            return;
+        }
+
+        setIsSubmitting(true);
+
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}send-contact-email`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                toast.success("Message sent successfully! Our agent will contact you soon.");
+                setFormData({ userEmail: "", phoneNumber: "", message: "" }); // Reset form
+            } else {
+                toast.error(result.message || "Failed to send message");
+            }
+        } catch (error) {
+            console.error("Error sending email:", error);
+            toast.error("Failed to send message. Please try again.");
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
     return (
         <div className="py-16 mx-auto max-w-11/12 md:max-w-10/12 lg:max-w-9/12 2xl:max-w-8/12">
             <div className="flex flex-col md:flex-row justify-between gap-8 md:gap-0">
@@ -49,20 +99,38 @@ const ContactUs = () => {
 
                     <FadeInText delay={0.4}>
                         <div>
-                            <form className="space-y-4">
+                            <form className="space-y-4" onSubmit={handleSubmit}>
                                 <input
-                                    type="text"
+                                    type="email"
+                                    name="userEmail"
+                                    value={formData.userEmail}
+                                    onChange={handleInputChange}
                                     className="bg-white-base rounded-md px-4 py-3 w-full focus:outline-none placeholder-black-text-light"
-                                    placeholder="Enter your email address or phone number"></input>
+                                    placeholder="Enter your email address"
+                                    required
+                                />
+                                <input
+                                    type="tel"
+                                    name="phoneNumber"
+                                    value={formData.phoneNumber}
+                                    onChange={handleInputChange}
+                                    className="bg-white-base rounded-md px-4 py-3 w-full focus:outline-none placeholder-black-text-light"
+                                    placeholder="Enter your phone number (optional)"
+                                />
                                 <textarea
+                                    name="message"
+                                    value={formData.message}
+                                    onChange={handleInputChange}
                                     rows={4}
                                     className="bg-white-base rounded-md px-4 py-3 w-full focus:outline-none placeholder-black-text-light"
                                     placeholder="Enter your message, food name, quantity etc."
+                                    required
                                 />
                                 <button
                                     type="submit"
-                                    className="py-3 px-6 bg-gold-text rounded-lg text-black cursor-pointer hover:shadow-lg transition-shadow duration-500 ease-in-out">
-                                    Submit
+                                    disabled={isSubmitting}
+                                    className="py-3 px-6 bg-gold-text rounded-lg text-black cursor-pointer hover:shadow-lg transition-shadow duration-500 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed">
+                                    {isSubmitting ? "Sending..." : "Submit"}
                                 </button>
                             </form>
                         </div>
