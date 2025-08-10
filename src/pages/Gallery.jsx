@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
+import { FadeInText, FadeInCard } from "../components/ScrollAnimations";
 
 // Import all gallery images
 import cardImage1 from "../assets/Card Images/card-image-1.webp";
@@ -97,50 +98,65 @@ const Gallery = () => {
                     Food Gallery
                 </h1>
             </div>
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
+            <div className="max-w-7xl mx-auto relative z-20">
                 {/* Header Section */}
                 <div className="text-center mb-20">
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-heading-color mb-4">Food Gallery</h1>
-                    <p className="text-lg md:text-xl text-gray-text-base max-w-3xl mx-auto">
-                        Explore our stunning collection of delicious dishes and culinary masterpieces. Click on any
-                        image to view it in full size with our interactive lightbox.
-                    </p>
+                    <FadeInText>
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-heading-color mb-4">
+                            Food Gallery
+                        </h1>
+                    </FadeInText>
+                    <FadeInText delay={0.2}>
+                        <p className="text-lg md:text-xl text-gray-text-base max-w-3xl mx-auto">
+                            Explore our stunning collection of delicious dishes and culinary masterpieces. Click on any
+                            image to view it in full size with our interactive lightbox.
+                        </p>
+                    </FadeInText>
                 </div>
 
                 {/* Gallery Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    {galleryImages.map((image, imageIndex) => (
-                        <div
-                            key={imageIndex}
-                            className="group relative overflow-hidden rounded-lg border border-card-stroke hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:scale-105"
-                            onClick={() => openLightbox(imageIndex)}>
-                            {/* Image */}
-                            <div className="aspect-square overflow-hidden">
-                                <img
-                                    src={image.src}
-                                    alt={image.alt}
-                                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                                    loading="lazy"
-                                />
-                            </div>
+                    {galleryImages.map((image, imageIndex) => {
+                        // Sequential delay for smooth one-by-one appearance
+                        const sequentialDelay = imageIndex * 0.05; // 0.05s delay between each image
 
-                            {/* Overlay */}
-                            <div className="absolute inset-0 bg-black-primary opacity-60 group-hover:bg-opacity-80 transition-all duration-300 flex items-center justify-center">
-                                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center text-white-text-primary">
-                                    <div className="text-2xl mb-2">
-                                        <svg className="w-8 h-8 mx-auto" fill="currentColor" viewBox="0 0 20 20">
-                                            <path
-                                                fillRule="evenodd"
-                                                d="M3 4a1 1 0 011-1h12a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm5 3a2 2 0 11-4 0 2 2 0 014 0zm7.707 3.293a1 1 0 00-1.414-1.414L11 12.172l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                                clipRule="evenodd"
-                                            />
-                                        </svg>
+                        return (
+                            <FadeInCard key={imageIndex} delay={sequentialDelay} duration={0.6} threshold={0.1}>
+                                <div
+                                    className="group relative overflow-hidden rounded-lg border border-card-stroke hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:scale-105"
+                                    onClick={() => openLightbox(imageIndex)}>
+                                    {/* Image */}
+                                    <div className="aspect-square overflow-hidden">
+                                        <img
+                                            src={image.src}
+                                            alt={image.alt}
+                                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                                            loading="lazy"
+                                        />
                                     </div>
-                                    <p className="text-sm font-medium">{image.title}</p>
+
+                                    {/* Overlay */}
+                                    <div className="absolute inset-0 bg-black-primary opacity-60 group-hover:bg-opacity-80 transition-all duration-300 flex items-center justify-center">
+                                        <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center text-white-text-primary">
+                                            <div className="text-2xl mb-2">
+                                                <svg
+                                                    className="w-8 h-8 mx-auto"
+                                                    fill="currentColor"
+                                                    viewBox="0 0 20 20">
+                                                    <path
+                                                        fillRule="evenodd"
+                                                        d="M3 4a1 1 0 011-1h12a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm5 3a2 2 0 11-4 0 2 2 0 014 0zm7.707 3.293a1 1 0 00-1.414-1.414L11 12.172l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                                        clipRule="evenodd"
+                                                    />
+                                                </svg>
+                                            </div>
+                                            <p className="text-sm font-medium">{image.title}</p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    ))}
+                            </FadeInCard>
+                        );
+                    })}
                 </div>
 
                 {/* Stats Section */}
