@@ -1,4 +1,3 @@
-
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import Loader from "../components/Loader";
@@ -7,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import UpdateModal from "../components/UpdateModal";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
-
+import { FadeInCard, FadeInText } from "../components/ScrollAnimations";
 
 const MyFoods = () => {
     const { user, loading: authLoading } = useContext(AuthContext);
@@ -45,7 +44,6 @@ const MyFoods = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user?.email, authLoading]);
 
-
     if (authLoading || loading) {
         return <Loader />;
     }
@@ -55,12 +53,16 @@ const MyFoods = () => {
             <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
                 {/* Header */}
                 <div className="text-center mb-6 md:mb-8">
-                    <h1 className="text-3xl md:text-4xl lg:text-4xl font-bold text-black-text-dark mb-3 md:mb-4 pt-6">
-                        My Food Items
-                    </h1>
-                    <p className="text-black-text-light text-md lg:text-lg xl:text-xl max-w-2xl mx-auto px-2">
-                        View and manage all the food items you've added to our community.
-                    </p>
+                    <FadeInText>
+                        <h1 className="text-3xl md:text-4xl lg:text-4xl font-bold text-black-text-dark mb-3 md:mb-4 pt-6">
+                            My Food Items
+                        </h1>
+                    </FadeInText>
+                    <FadeInText delay={0.2}>
+                        <p className="text-black-text-light text-md lg:text-lg xl:text-xl max-w-2xl mx-auto px-2">
+                            View and manage all the food items you've added to our community.
+                        </p>
+                    </FadeInText>
                 </div>
 
                 {/* Foods Display */}
@@ -95,93 +97,101 @@ const MyFoods = () => {
                 ) : (
                     <>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                            {myFoods.map((food) => (
-                                <div
-                                    key={food._id}
-                                    className="bg-card-background rounded-lg overflow-hidden hover:shadow-card-shadow transition-shadow duration-300 border border-card-stroke flex flex-col h-full cursor-pointer">
-                                    <div className="relative">
-                                        <img
-                                            src={food.foodImage}
-                                            alt={food.foodName}
-                                            className="w-full h-40 md:h-48 object-cover"
-                                        />
-                                        <div className="absolute top-2 md:top-3 right-2 md:right-3">
-                                            <span className="inline-flex items-center px-2 md:px-4 py-1.5 md:py-3 rounded-lg md:rounded-xl text-sm md:text-md font-medium bg-card-tablet text-white-base border border-card-tablet-stroke">
-                                                {food.foodCategory}
-                                            </span>
-                                        </div>
-                                    </div>
+                            {myFoods.map((food, index) => {
+                                // Sequential delay but much faster (0.05s between each card)
+                                const sequentialDelay = index * 0.05;
 
-                                    <div className="p-4 md:p-6 flex flex-col flex-grow">
-                                        <h3 className="font-bold text-lg md:text-xl text-card-main-text mb-2 md:mb-3">
-                                            {food.foodName}
-                                        </h3>
-
-                                        <p className="text-card-subtext text-xs md:text-sm mb-4 md:mb-6 leading-relaxed line-clamp-2">
-                                            {food.description}
-                                        </p>
-
-                                        <div className="mt-auto space-y-2 md:space-y-3">
-                                            <div className="flex justify-between items-center text-sm md:text-lg border-y border-y-card-stroke py-3">
-                                                <span>
-                                                    <span className="font-medium text-card-main-text">Origin :</span>{" "}
-                                                    {food.foodOrigin}
-                                                </span>
-                                                <span>
-                                                    <span className="font-medium text-card-main-text">Quantity:</span>{" "}
-                                                    {food.quantity}
-                                                </span>
+                                return (
+                                    <FadeInCard key={food._id} delay={sequentialDelay} duration={0.6} threshold={0.1}>
+                                        <div className="bg-card-background rounded-lg overflow-hidden hover:shadow-card-shadow transition-shadow duration-300 border border-card-stroke flex flex-col h-full cursor-pointer">
+                                            <div className="relative">
+                                                <img
+                                                    src={food.foodImage}
+                                                    alt={food.foodName}
+                                                    className="w-full h-40 md:h-48 object-cover"
+                                                />
+                                                <div className="absolute top-2 md:top-3 right-2 md:right-3">
+                                                    <span className="inline-flex items-center px-2 md:px-4 py-1.5 md:py-3 rounded-lg md:rounded-xl text-sm md:text-md font-medium bg-card-tablet text-white-base border border-card-tablet-stroke">
+                                                        {food.foodCategory}
+                                                    </span>
+                                                </div>
                                             </div>
 
-                                            <div className="flex justify-between items-center">
-                                                <button
-                                                    className="inline-flex items-center px-3 md:px-4 py-2 md:py-3 text-xs md:text-sm font-medium text-white bg-red-base hover:bg-red-700 rounded-md transition-colors duration-300 cursor-pointer"
-                                                    title="Update food item"
-                                                    onClick={() => {
-                                                        setSelectedFoodId(food._id);
-                                                        setShowUpdateModal(true);
-                                                    }}
-                                                >
-                                                    <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        className="w-4 h-4 md:w-5 md:h-5 mr-1 md:mr-2"
-                                                        viewBox="0 0 24 24"
-                                                        width={20}
-                                                        height={20}
-                                                        color={"#FDFDFD"}
-                                                        fill={"none"}>
-                                                        <path
-                                                            d="M8.17151 19.8284L19.8284 8.17157C20.3736 7.62632 20.6462 7.3537 20.792 7.0596C21.0693 6.50005 21.0693 5.8431 20.792 5.28354C20.6462 4.98945 20.3736 4.71682 19.8284 4.17157C19.2831 3.62632 19.0105 3.3537 18.7164 3.20796C18.1568 2.93068 17.4999 2.93068 16.9403 3.20796C16.6462 3.3537 16.3736 3.62632 15.8284 4.17157L4.17151 15.8284C3.59345 16.4064 3.30442 16.6955 3.15218 17.063C2.99994 17.4305 2.99994 17.8393 2.99994 18.6568V20.9999H5.34308C6.16059 20.9999 6.56934 20.9999 6.93688 20.8477C7.30442 20.6955 7.59345 20.4064 8.17151 19.8284Z"
-                                                            stroke="#FDFDFD"
-                                                            strokeWidth="1.5"
-                                                            strokeLinecap="round"
-                                                            strokeLinejoin="round"
-                                                        />
-                                                        <path
-                                                            d="M12 21H18"
-                                                            stroke="#FDFDFD"
-                                                            strokeWidth="1.5"
-                                                            strokeLinecap="round"
-                                                            strokeLinejoin="round"
-                                                        />
-                                                        <path
-                                                            d="M14.5 5.5L18.5 9.5"
-                                                            stroke="#FDFDFD"
-                                                            strokeWidth="1.5"
-                                                            strokeLinecap="round"
-                                                            strokeLinejoin="round"
-                                                        />
-                                                    </svg>
-                                                    Update
-                                                </button>
-                                                <div className="text-xl md:text-3xl font-bold text-card-main-text">
-                                                    ৳{food.price}
+                                            <div className="p-4 md:p-6 flex flex-col flex-grow">
+                                                <h3 className="font-bold text-lg md:text-xl text-card-main-text mb-2 md:mb-3">
+                                                    {food.foodName}
+                                                </h3>
+
+                                                <p className="text-card-subtext text-xs md:text-sm mb-4 md:mb-6 leading-relaxed line-clamp-2">
+                                                    {food.description}
+                                                </p>
+
+                                                <div className="mt-auto space-y-2 md:space-y-3">
+                                                    <div className="flex justify-between items-center text-sm md:text-lg border-y border-y-card-stroke py-3">
+                                                        <span>
+                                                            <span className="font-medium text-card-main-text">
+                                                                Origin :
+                                                            </span>{" "}
+                                                            {food.foodOrigin}
+                                                        </span>
+                                                        <span>
+                                                            <span className="font-medium text-card-main-text">
+                                                                Quantity:
+                                                            </span>{" "}
+                                                            {food.quantity}
+                                                        </span>
+                                                    </div>
+
+                                                    <div className="flex justify-between items-center">
+                                                        <button
+                                                            className="inline-flex items-center px-3 md:px-4 py-2 md:py-3 text-xs md:text-sm font-medium text-white bg-red-base hover:bg-red-700 rounded-md transition-colors duration-300 cursor-pointer"
+                                                            title="Update food item"
+                                                            onClick={() => {
+                                                                setSelectedFoodId(food._id);
+                                                                setShowUpdateModal(true);
+                                                            }}>
+                                                            <svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                className="w-4 h-4 md:w-5 md:h-5 mr-1 md:mr-2"
+                                                                viewBox="0 0 24 24"
+                                                                width={20}
+                                                                height={20}
+                                                                color={"#FDFDFD"}
+                                                                fill={"none"}>
+                                                                <path
+                                                                    d="M8.17151 19.8284L19.8284 8.17157C20.3736 7.62632 20.6462 7.3537 20.792 7.0596C21.0693 6.50005 21.0693 5.8431 20.792 5.28354C20.6462 4.98945 20.3736 4.71682 19.8284 4.17157C19.2831 3.62632 19.0105 3.3537 18.7164 3.20796C18.1568 2.93068 17.4999 2.93068 16.9403 3.20796C16.6462 3.3537 16.3736 3.62632 15.8284 4.17157L4.17151 15.8284C3.59345 16.4064 3.30442 16.6955 3.15218 17.063C2.99994 17.4305 2.99994 17.8393 2.99994 18.6568V20.9999H5.34308C6.16059 20.9999 6.56934 20.9999 6.93688 20.8477C7.30442 20.6955 7.59345 20.4064 8.17151 19.8284Z"
+                                                                    stroke="#FDFDFD"
+                                                                    strokeWidth="1.5"
+                                                                    strokeLinecap="round"
+                                                                    strokeLinejoin="round"
+                                                                />
+                                                                <path
+                                                                    d="M12 21H18"
+                                                                    stroke="#FDFDFD"
+                                                                    strokeWidth="1.5"
+                                                                    strokeLinecap="round"
+                                                                    strokeLinejoin="round"
+                                                                />
+                                                                <path
+                                                                    d="M14.5 5.5L18.5 9.5"
+                                                                    stroke="#FDFDFD"
+                                                                    strokeWidth="1.5"
+                                                                    strokeLinecap="round"
+                                                                    strokeLinejoin="round"
+                                                                />
+                                                            </svg>
+                                                            Update
+                                                        </button>
+                                                        <div className="text-xl md:text-3xl font-bold text-card-main-text">
+                                                            ৳{food.price}
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            ))}
+                                    </FadeInCard>
+                                );
+                            })}
                         </div>
                         {/* Update Modal */}
                         {showUpdateModal && selectedFoodId && (
@@ -198,11 +208,13 @@ const MyFoods = () => {
                                     // Re-fetch foods
                                     if (user?.email) {
                                         setLoading(true);
-                                        get(`/my-foods/${user?.email}`).then(result => {
-                                            if (result && result.success) {
-                                                setMyFoods(result.data);
-                                            }
-                                        }).finally(() => setLoading(false));
+                                        get(`/my-foods/${user?.email}`)
+                                            .then((result) => {
+                                                if (result && result.success) {
+                                                    setMyFoods(result.data);
+                                                }
+                                            })
+                                            .finally(() => setLoading(false));
                                     }
                                 }}
                             />
